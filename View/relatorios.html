@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- Tailwind CSS (experimental browser version) -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    
+    <!-- Seu CSS personalizado -->
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+
+    <!-- FontAwesome -->
+    <script src="https://kit.fontawesome.com/70b0485947.js" crossorigin="anonymous"></script>
+
+    <title>Home</title>
+</head>
+<body class="flex items-center justify-center w-full h-[100vh]">
+    <div class="card bg-primary mx-[10%] h-[75%]">
+        <ul class="nav flex items-center justify-between mb-3">
+            <div class="flex flex-nowrap">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="home.html">Início</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="relatorios.html"><u>Relatórios</u></a>
+                </li>
+            </div>
+
+            <li class="nav-item">
+                <a class="nav-link" href="login.html">Sair <i class="fa-solid fa-right-from-bracket"></i></a>
+            </li>
+        </ul>
+
+        <div class="flex flex-col gap-3">
+            <div class="flex flex-nowrap gap-3 font-bold items-center justify-center w-full">
+                <img width="6%" src="img/logo-ufsm.webp" />
+                <h1>EVASÃO 360</h1>
+            </div>
+            
+            <div class="flex items-center justify-center w-full relative">
+                <h3 class="text-secondary"><i>Gere um relatório</i></h3>
+            </div>
+
+            <div class="flex flex-col gap-5 mt-3">
+                <div>
+                    <h6>Comparar cursos</h6>
+                    <div class="flex flex-nowrap gap-3">
+                        <select class="form-select max-w-[300px]" aria-label="Default select example">
+                            <option selected>Selecione</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+    
+                        <select class="form-select max-w-[300px]" aria-label="Default select example">
+                            <option selected>Selecione</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+    
+                        <button type="button" class="btn btn-light">
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
+                    </div>
+                    <a href="#" class="btn btn-primary btn-md mt-2">
+                        <b>Gerar</b>
+                    </a>
+                </div>
+    
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <h6>Evolução temporal da taxa de evasão - selecione o curso</h6>
+                        <select class="form-select max-w-[300px]" aria-label="Default select example">
+                            <option selected>Selecione</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                        <a href="#" class="btn btn-primary btn-md mt-2">
+                            <b>Gerar</b>
+                        </a>
+                    </div>
+    
+                    <div>
+                        <h6>Custo total das evasões - selecione o curso</h6>
+                        <select class="form-select max-w-[300px]" aria-label="Default select example">
+                            <option selected>Selecione</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                        <a href="#" class="btn btn-primary btn-md mt-2">
+                            <b>Gerar</b>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
