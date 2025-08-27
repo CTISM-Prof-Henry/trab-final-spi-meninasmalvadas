@@ -13,13 +13,13 @@ public class UsuarioDAO {
     public String alterer(Usuario usuario, int id) {
         try {
             Connection conn = ConectarBancoDados.conectarBancoDados();
-            PreparedStatement stmt = conn.prepareStatement("UPDATE usuario SET email = ?, senha_hash = ?, ativo = ?, cliente_usuario_id = ? WHERE id = ?"
+            PreparedStatement stmt = conn.prepareStatement("UPDATE usuario SET email = ?, senha = ?, nome = ?, ativo = ? WHERE id = ?"
             );
 
             stmt.setString(1, usuario.getEmail());
             stmt.setString(2, usuario.getSenha());
             stmt.setBoolean(3, usuario.isAtivo());
-            stmt.setInt(4, usuario.getCliente_usuario_id());
+            stmt.setString(4, usuario.getNome());
             stmt.setInt(5, id);
 
             stmt.execute();
@@ -63,13 +63,13 @@ public class UsuarioDAO {
 
         try {
             Connection conn = ConectarBancoDados.conectarBancoDados();
-            PreparedStatement stmt = conn.prepareStatement("insert into usuario(email, senha_hash, ativo, cliente_usuario_id) values(?, ?, ?, ?)"
+            PreparedStatement stmt = conn.prepareStatement("insert into usuario(email, senha, ativo, nome) values(?, ?, ?, ?)"
             );
 
             stmt.setString(1, usuario.getEmail());
             stmt.setString(2, usuario.getSenha());
             stmt.setBoolean(3, usuario.isAtivo());
-            stmt.setInt(4, usuario.getCliente_usuario_id());
+            stmt.setString(4, usuario.getNome());
 
             stmt.execute();
 
@@ -95,10 +95,11 @@ public class UsuarioDAO {
                 while (rs.next()) {
                     Usuario u = new Usuario();
                     u.setId(rs.getInt("id"));
+                    u.setNome(rs.getString("nome"));
                     u.setEmail(rs.getString("email"));
-                    u.setSenha(rs.getString("senha_hash"));
+                    u.setSenha(rs.getString("senha"));
                     u.setAtivo(rs.getBoolean("ativo"));
-                    u.setCliente_usuario_id(rs.getInt("cliente_usuario_id"));
+
 
                     usuarios.add(u);
 

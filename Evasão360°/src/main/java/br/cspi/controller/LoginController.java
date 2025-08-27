@@ -1,25 +1,16 @@
 package br.cspi.controller;
 
+import br.cspi.model.Usuario;
+import br.cspi.service.LoginService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class LoginController {
     //isso aqui ta incompleto
 
-
-    @GetMapping("/login")
-    public String viewLogin() {
-        //retorna login.jsp
-        return "login";
-    }
-
-    @GetMapping("/home")
-    public String viewHome() {
-        //retorna home.jsp
-        return "home";
-    }
 
     @GetMapping("/") //default
     public String viewSobre() {
@@ -27,15 +18,46 @@ public class LoginController {
         return "index";
     }
 
-    @GetMapping("/relatorios")
-    public String viewRelatorios() {
-        //retorna relatorios.jsp
-        return "relatorios";
+    @GetMapping("/login")
+    public String viewLogin() {
+        //retorna login.jsp
+        return "login";
     }
 
     @GetMapping("/logout")
     public String handleLogout(HttpSession session) {
         session.invalidate();
         return "index";
+    }
+
+    @PostMapping("/login")
+    public String login( String email, String senha, HttpSession session) {
+        System.out.println("Realizando o login o usuario" + email);
+        System.out.println(email);
+        System.out.println(senha);
+
+
+
+        Usuario user = new LoginService().autenticar(email, senha);
+
+        if (user != null) {
+            session.setAttribute("usuarioId", user.getId());
+            System.out.println("Login com sucesso");
+            return "redirect:home";
+        } else {
+//            model.addAttribute("msg", "Login ou senha incorreto!");
+            return "login";
+        }
+    }
+    @GetMapping("/home")
+    public String viewHome() {
+        //retorna home.jsp
+        return "home";
+    }
+
+    @GetMapping("/relatorios")
+    public String viewRelatorios() {
+        //retorna relatorios.jsp
+        return "relatorios";
     }
 }

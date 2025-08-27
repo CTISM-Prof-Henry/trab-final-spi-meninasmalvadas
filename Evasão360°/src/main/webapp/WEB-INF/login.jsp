@@ -17,15 +17,15 @@
         </div>
 
         <div class="flex flex-col gap-3">
-            <form action="${pageContext.request.contextPath}/login" method="post">
+            <form action="${pageContext.request.contextPath}/login" method="POST">
             <div>
                 <label for="email_user" class="form-label">E-mail <span class="text-xs"><i>(seu email)</i></span></label>
-                <input type="email" class="form-control form-control-lg" id="email_user" placeholder="ufsm.poli@acad.ufsm.br">
+                <input type="email" class="form-control form-control-lg" id="email" name="email" placeholder="ufsm.poli@acad.ufsm.br">
             </div>
 
             <div>
                 <label for="senha_user" class="form-label">Senha</label>
-                <input type="password" class="form-control form-control-lg" id="senha_user" placeholder="**********">
+                <input type="password" class="form-control form-control-lg" id="senha" name="senha" placeholder="**********">
             </div>
         </div>
 
