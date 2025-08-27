@@ -11,7 +11,7 @@ public class ConectarBancoDados {
 
         Class.forName("org.postgresql.Driver");
         System.out.println("Driver carregado");
-        String url = "jdbc:postgresql://localhost:5432/deskpet";
+        String url = "jdbc:postgresql://localhost:5432/evasao360";
         String user = "postgres";
         String senha = "94786422Wp$";
         Connection conn =
