@@ -1,0 +1,101 @@
+body {
+    background-image: url('../img/img_background.png');
+    background-repeat: no-repeat;
+    background-size: cover;       /* Faz a imagem cobrir toda a área */
+    background-position: center;  /* Centraliza a imagem */
+    color: white;
+}
+
+.bg-primary {
+    background-color: #28346C !important;
+    border-radius: 24px;
+    padding: 3%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+}
+
+.btn-primary{
+    background: linear-gradient(#E4E4E4, #76787B) !important;
+    border: transparent !important;
+    padding: 8px 48px 8px 48px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+}
+
+input {
+    opacity: 70%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3) inset;
+}
+
+input::placeholder {
+    color: rgb(209, 213, 217) !important;
+    opacity: 1;
+}
+
+.text-secondary{
+    color: #F58633 !important;
+    text-align: center;
+}
+
+.text-secondary2{
+    color: #F58633 !important;
+    font-style: italic;
+    font-size: 20px;
+}
+
+.modal-content {
+    background: #E5E5E5;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+    border-radius: 10px;  
+}
+
+.form-label {
+    color: rgb(0, 0, 0);
+}
+
+.form-control {
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    border: transparent !important;
+    padding: 8px 48px 8px 48px;
+    background-color: rgba(1, 6, 36, 0.699) !important;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+    border-radius: 10px;  
+    font-size: 20px;  
+}
+
+.img-fluid {
+    border-radius: 10px;    
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+    border: #28346C 2px solid;
+}
+
+.btn-close {
+    background-color: rgba(1, 6, 36, 1) !important;
+    padding: 10px 15px 20px 15px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0);
+    border-radius: 10px;    
+    color: white !important;
+}
+
+.nav-link, p {
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+th, td {
+    padding: 8px;
+    text-align: center;
+}
+
+td{
+    border: 1px solid #ccc;
+}
+
+th{
+    color: #F58633;
+}
+
+table{
+    background-color: white;
+    border-radius: 16px;
+}
