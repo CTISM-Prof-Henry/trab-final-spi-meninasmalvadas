@@ -16,12 +16,12 @@ public class AppConfig {
             public void addInterceptors(InterceptorRegistry registry) {
                 registry.addInterceptor(new AutorizadorInterceptor())
                         .addPathPatterns("/**")
-                        .excludePathPatterns(   // Exceto as listadas abaixo
-                                "/login",       // Exclui a pĂ¡gina de login (GET e POST)
-                                "/",            // Exclui a pĂ¡gina inicial/sobre
-                                "/css/**",      // Exclui TUDO dentro da pasta /css
-                                "/img/**",      // Exclui TUDO dentro da pasta /img
-                                "/js/**"        // Exclui TUDO dentro da pasta /js (se vocĂŞ tiver)
+                        .excludePathPatterns(   // exceções de bloqueio do interceptor
+                                "/login",
+                                "/",
+                                "/css/**",
+                                "/img/**",
+                                "/js/**"
                         );
             }
         };

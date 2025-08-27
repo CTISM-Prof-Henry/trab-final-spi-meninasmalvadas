@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <jsp:include page="shared/header.jsp" />
+    <jsp:include page="shared/header.jsp"/>
 
     <title>Login</title>
 </head>
@@ -12,47 +12,68 @@
 <div class="card bg-primary max-w-[24%] mx-[10%] h-[55%]">
     <div class="card-body flex flex-col justify-between gap-5">
         <div class="flex flex-nowrap gap-3 font-bold items-center justify-center w-full">
-            <img width="20%" src="${pageContext.request.contextPath}/img/logo-ufsm.webp" />
+            <img width="20%" src="${pageContext.request.contextPath}/img/logo-ufsm.webp"/>
             <h1>LOGIN</h1>
         </div>
 
         <div class="flex flex-col gap-3">
-            <c:if test="${not empty erro}">
-                <p class="error">${erro}</p>
-            </c:if>
-
             <form action="${pageContext.request.contextPath}/login" method="post">
-                <div class="form-group">
-                    <label>Email:</label>
-                    <input type="email" name="email" required>
-                </div>
-            <div class="form-group">
-                <label>Senha:</label>
-                <input type="password" name="senha" required>
+            <div>
+                <label for="email_user" class="form-label">E-mail <span class="text-xs"><i>(seu email)</i></span></label>
+                <input type="email" class="form-control form-control-lg" id="email_user" placeholder="ufsm.poli@acad.ufsm.br">
             </div>
-            <button type="submit" class="btn btn-primary">Entrar</button>
-            </form>
 
-<%--            <div>--%>
-<%--                <label for="email_user" class="form-label">E-mail <span class="text-xs"><i>(seu email)</i></span></label>--%>
-<%--                <input type="email" class="form-control form-control-lg" id="email_user" placeholder="ufsm.poli@acad.ufsm.br">--%>
-<%--            </div>--%>
-
-<%--            <div>--%>
-<%--                <label for="senha_user" class="form-label">Senha</label>--%>
-<%--                <input type="password" class="form-control form-control-lg" id="senha_user" placeholder="**********">--%>
-<%--            </div>--%>
-<%--        </div>--%>
-
-<%--        <div class="flex flex-col gap-2 font-bold items-center justify-center w-full">--%>
-<%--            <a href="/home" class="btn btn-primary btn-lg">--%>
-<%--                <b>Login</b>--%>
-<%--            </a>--%>
-<%--            <a class="text-white" href="/index">--%>
-<%--                Voltar--%>
-<%--            </a>--%>
+            <div>
+                <label for="senha_user" class="form-label">Senha</label>
+                <input type="password" class="form-control form-control-lg" id="senha_user" placeholder="**********">
+            </div>
         </div>
+
+        <div class="flex flex-col gap-2 font-bold items-center justify-center w-full">
+            <button type="submit" class="btn btn-primary">Entrar</button>
+            <a class="text-white" href="${pageContext.request.contextPath}/">Voltar</a>
+        </div>
+        </form>
     </div>
 </div>
 </body>
+
+
+
+<%--</head>--%>
+<%--<body class="flex items-center justify-center w-full h-[100vh]">--%>
+<%--<div class="card bg-primary max-w-[24%] mx-[10%] h-[55%]">--%>
+<%--    <div class="card-body flex flex-col justify-between gap-5">--%>
+<%--        <div class="flex flex-nowrap gap-3 font-bold items-center justify-center w-full">--%>
+<%--            <img width="20%" src="${pageContext.request.contextPath}/img/logo-ufsm.webp"/>--%>
+<%--            <h1>LOGIN</h1>--%>
+<%--        </div>--%>
+
+<%--        <div class="flex flex-col gap-3">--%>
+<%--            <c:if test="${not empty erro}">--%>
+<%--                <p class="error">${erro}</p>--%>
+<%--            </c:if>--%>
+
+<%--            <form action="${pageContext.request.contextPath}/login" method="post">--%>
+<%--                <div>--%>
+<%--                    <label for="email_user" class="form-label">Email: <span--%>
+<%--                            class="text-xs"><i>(seu email)</i></span></label>--%>
+<%--                    <input type="email" name="email" class="form-control form-control-lg" id="email_user"--%>
+<%--                           placeholder="ufsm.poli@acad.ufsm.br" required>--%>
+<%--                </div>--%>
+<%--                <div class="form-group">--%>
+<%--                    <label for="senha_user" class="form-label">Senha:</label>--%>
+<%--                    <input type="password" name="senha" class="form-control form-control-lg" id="senha_user"--%>
+<%--                           placeholder="**********" required>--%>
+<%--                </div>--%>
+
+<%--                <div class="flex flex-col gap-2 font-bold items-center justify-center w-full">--%>
+<%--                    <button type="submit" class="btn btn-primary">Entrar</button>--%>
+<%--                    <a class="text-white" href="${pageContext.request.contextPath}/">Voltar</a>--%>
+<%--                </div>--%>
+<%--            </form>--%>
+
+<%--    </div>--%>
+<%--</div>--%>
+<%--</body>--%>
 </html>
