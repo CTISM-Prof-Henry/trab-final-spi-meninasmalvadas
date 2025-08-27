@@ -17,7 +17,7 @@ public class AutorizadorInterceptor implements HandlerInterceptor {
             return true;
         }
 
-        if (url.startsWith("/static/css/")) {
+        if (url.startsWith("/src/main/webapp/static/css/")) {
             return true;
         }
 
