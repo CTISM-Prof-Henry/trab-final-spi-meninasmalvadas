@@ -11,15 +11,6 @@ public class AutorizadorInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response,
                              Object handler) throws Exception {
-        String url = request.getRequestURI();
-
-        if (url.equals("/") || url.equals("/login")  || url.equals("/Cadastro")) {
-            return true;
-        }
-
-        if (url.startsWith("/src/main/webapp/static/css/")) {
-            return true;
-        }
 
         if (request.getSession().getAttribute("usuarioId") == null) {
             response.sendRedirect("/login");
