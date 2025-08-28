@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class LoginController {
-    //isso aqui ta incompleto
 
 
     @GetMapping("/") //default
@@ -41,7 +40,7 @@ public class LoginController {
         Usuario user = new LoginService().autenticar(email, senha);
 
         if (user != null) {
-            session.setAttribute("usuarioId", user.getId());
+            session.setAttribute("usuario", user);
             System.out.println("Login com sucesso");
             return "redirect:home";
         } else {
@@ -49,15 +48,5 @@ public class LoginController {
             return "login";
         }
     }
-    @GetMapping("/home")
-    public String viewHome() {
-        //retorna home.jsp
-        return "home";
-    }
 
-    @GetMapping("/relatorios")
-    public String viewRelatorios() {
-        //retorna relatorios.jsp
-        return "relatorios";
-    }
 }

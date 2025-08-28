@@ -12,7 +12,7 @@ public class AutorizadorInterceptor implements HandlerInterceptor {
                              HttpServletResponse response,
                              Object handler) throws Exception {
 
-        if (request.getSession().getAttribute("usuarioId") == null) {
+        if (request.getSession().getAttribute("usuario") == null) {
             response.sendRedirect("/login");
             return false;
         }
