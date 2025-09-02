@@ -13,7 +13,7 @@ public class ConectarBancoDados {
         System.out.println("Driver carregado");
         String url = "jdbc:postgresql://localhost:5432/evasao360";
         String user = "postgres";
-        String senha = "94786422Wp$";
+        String senha = "1234";
         Connection conn =
                 DriverManager.getConnection(url, user, senha);
         return conn;
