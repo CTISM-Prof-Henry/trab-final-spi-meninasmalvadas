@@ -117,12 +117,6 @@ public class UsuarioDAO {
         }
 
 
-
-
-
-
-
-
     public List<Usuario> listarTodos() {
         return getUsuarios();
     }
