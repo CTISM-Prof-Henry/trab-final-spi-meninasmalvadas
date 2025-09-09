@@ -20,7 +20,7 @@ public class Alunos {
     private int id;
     private String matricula;
     private String nome;
-    private String curso;
+    private int curso_id;
     private double risco;
     private String email;
     private String cpf;

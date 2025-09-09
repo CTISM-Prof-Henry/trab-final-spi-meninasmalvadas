@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -69,6 +70,38 @@
                 </tr>
                 </thead>
                 <tbody id="table-body">
+                    <c:forEach items="${alunos}" var="aluno">
+                        <tr>
+                            <td>${aluno.matricula}</td>
+                            <td>${aluno.nome}</td>
+                            <td>${aluno.curso_id}</td>
+                            <c:choose>
+                                <c:when test="${aluno.risco >= 0.7}">
+                                    <td class="text-red-500">
+                                        Alto (<fmt:formatNumber value="${aluno.risco * 100}" maxFractionDigits="1" minFractionDigits="1"/>%)
+                                        <i class="fa-solid fa-triangle-exclamation"></i>
+                                    </td>
+                                </c:when>
+                                <c:when test="${aluno.risco > 0.3}">
+                                    <td class="text-yellow-500">
+                                        Moderado (<fmt:formatNumber value="${aluno.risco * 100}" maxFractionDigits="1" minFractionDigits="1"/>%)
+                                        <i class="fa-solid fa-triangle-exclamation"></i>
+                                    </td>
+                                </c:when>
+                                <c:otherwise>
+                                    <td class="text-blue-500">
+                                        Baixo (<fmt:formatNumber value="${aluno.risco * 100}" maxFractionDigits="1" minFractionDigits="1"/>%)
+                                        <i class="fa-solid fa-thumbs-up"></i>
+                                    </td>
+                                </c:otherwise>
+                            </c:choose>
+                            <td>
+                                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#studentModal" onclick="showStudentDetails('${aluno.matricula}')">
+                                    <i class="fa-solid fa-arrow-up-right-from-square text-secondary"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </c:forEach>
                 </tbody>
             </table>
         </div>

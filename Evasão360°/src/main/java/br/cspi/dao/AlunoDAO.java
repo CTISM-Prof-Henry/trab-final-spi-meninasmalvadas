@@ -18,7 +18,7 @@ public class AlunoDAO {
             Connection conn = ConectarBancoDados.conectarBancoDados();
 
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("select * from aluno");
+            ResultSet rs = stmt.executeQuery("select * from alunos");
 
             while (rs.next()) {
 //                    Usuario u = new Usuario();
@@ -31,7 +31,7 @@ public class AlunoDAO {
                 Alunos a = new Alunos();
                 a.setMatricula(rs.getString("matricula"));
                 a.setNome(rs.getString("nome"));
-                a.setCurso(rs.getString("curso"));
+                a.setCurso_id(rs.getInt("curso_id"));
                 a.setRisco(rs.getDouble("risco"));
                 a.setEmail(rs.getString("email"));
                 a.setCpf(rs.getString("cpf"));
