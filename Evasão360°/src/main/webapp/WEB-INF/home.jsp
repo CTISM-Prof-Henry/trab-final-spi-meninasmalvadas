@@ -41,23 +41,35 @@
             <div></div>
 
             <div class="flex flex-nowrap gap-1">
+            <form action="/home" method="get">
 
-                <select id="select-centro" name="centro" class="form-select" aria-label="Seleção de Centro">
-                    <option value="" selected disabled>Centros</option>
 
-                    <c:forEach var="centro" items="${requestScope.centros}">
-                        <option value="${centro.id}">${centro.sigla}</option>
-                    </c:forEach>
-
-                </select>
-
-                <select id="select-curso" name="curso" class="form-select" aria-label="Seleção de Curso" disabled>
-                    <option selected>Cursos</option>
-                    <c:forEach var="curso" items="${requestScope.cursos}">
-                        <option value="${curso.id}">${curso.nome}</option>
+                <select name="centroId" class="form-select" id="centroSelect" onchange="this.form.submit()">
+                    <option value="">Centros</option>
+                    <c:forEach var="centro" items="${centros}">
+                        <option value="${centro.id}"
+                                <c:if test="${centroSelecionadoId == centro.id}">selected</c:if>>
+                                ${centro.nome}
+                        </option>
                     </c:forEach>
                 </select>
+
+
+                <select name="cursoId" class="form-select" id="cursoSelect" onchange="this.form.submit()">
+                    <option value="">Cursos</option>
+
+                    <%-- Esta lista só é preenchida se um Centro foi selecionado no Controller --%>
+                    <c:forEach var="curso" items="${cursos}">
+                        <option value="${curso.id}"
+                                <c:if test="${cursoSelecionadoId == curso.id}">selected</c:if>>
+                                ${curso.nome}
+                        </option>
+                    </c:forEach>
+                </select>
+            </form>
             </div>
+
+
         </div>
 
 
