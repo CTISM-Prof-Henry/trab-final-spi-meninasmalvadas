@@ -46,13 +46,16 @@
                     <option value="" selected disabled>Centros</option>
 
                     <c:forEach var="centro" items="${requestScope.centros}">
-                        <option value="${centro.id}">${centro.nome}</option>
+                        <option value="${centro.id}">${centro.sigla}</option>
                     </c:forEach>
 
                 </select>
 
                 <select id="select-curso" name="curso" class="form-select" aria-label="Seleção de Curso" disabled>
                     <option selected>Cursos</option>
+                    <c:forEach var="curso" items="${requestScope.cursos}">
+                        <option value="${curso.id}">${curso.nome}</option>
+                    </c:forEach>
                 </select>
             </div>
         </div>
@@ -156,70 +159,5 @@
 
 </html>
 
-<script>
-    // 1. Defina a URL do seu Servlet que buscará os cursos
-    // (Ajuste a URL se o seu Servlet estiver mapeado de forma diferente)
-    const CURSOS_API_URL = '/api/cursos';
 
-    // Obtém referências aos elementos SELECT
-    const selectCentro = document.getElementById('select-centro');
-    const selectCurso = document.getElementById('select-curso');
 
-    // Adiciona um listener para quando o valor do Centro mudar
-    selectCentro.addEventListener('change', function() {
-        const centroId = this.value; // Pega o ID do centro selecionado
-
-        // Limpa e exibe status de carregamento no select de cursos
-        selectCurso.innerHTML = '<option selected disabled>Carregando Cursos...</option>';
-        selectCurso.disabled = true;
-
-        if (!centroId) {
-            // Se o usuário selecionar a opção vazia/padrão
-            selectCurso.innerHTML = '<option value="" selected disabled>Selecione um Centro primeiro</option>';
-            return;
-        }
-
-        // 2. Faz a requisição AJAX para o Servlet, passando o ID do centro como parâmetro
-        const urlComFiltro = `${CURSOS_API_URL}?centroId=${centroId}`;
-
-        fetch(urlComFiltro)
-            .then(response => {
-                if (!response.ok) {
-                    // Trata erros de resposta HTTP (ex: 404, 500)
-                    throw new Error('Erro ao buscar dados do servidor. Status: ' + response.status);
-                }
-                return response.json(); // Converte a resposta JSON em um Array/Objeto JavaScript
-            })
-            .then(data => {
-                // 3. Popula o dropdown de Cursos
-
-                // Limpa as opções de carregamento
-                selectCurso.innerHTML = '';
-
-                // Adiciona a opção padrão
-                const defaultOption = document.createElement('option');
-                defaultOption.value = "";
-                defaultOption.textContent = "--- Selecione o Curso ---";
-                defaultOption.selected = true;
-                defaultOption.disabled = true;
-                selectCurso.appendChild(defaultOption);
-
-                // Adiciona as novas opções a partir dos dados retornados
-                data.forEach(curso => {
-                    const option = document.createElement('option');
-                    // Assume que o objeto JSON retornado tem as propriedades 'id' e 'nome'
-                    option.value = curso.id;
-                    option.textContent = curso.nome;
-                    selectCurso.appendChild(option);
-                });
-
-                // Habilita o select de cursos
-                selectCurso.disabled = false;
-            })
-            .catch(error => {
-                console.error('Erro na requisição AJAX:', error);
-                // Exibe mensagem de erro
-                selectCurso.innerHTML = '<option selected disabled>Falha ao carregar cursos</option>';
-            });
-    });
-</script>
