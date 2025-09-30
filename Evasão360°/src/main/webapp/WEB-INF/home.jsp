@@ -41,18 +41,18 @@
             <div></div>
 
             <div class="flex flex-nowrap gap-1">
-                <select class="form-select" aria-label="Default select example">
-                    <option selected>Centos</option>
-                    <option value="1">CEFD</option>
-                    <option value="2">CCSH</option>
-                    <option value="3">CAL</option>
+
+                <select id="select-centro" name="centro" class="form-select" aria-label="Seleção de Centro">
+                    <option value="" selected disabled>Centros</option>
+
+                    <c:forEach var="centro" items="${requestScope.centros}">
+                        <option value="${centro.id}">${centro.nome}</option>
+                    </c:forEach>
+
                 </select>
 
-                <select class="form-select" aria-label="Default select example">
-                    <option selected>Curso</option>
-                    <option value="1">Sistemas para Internet</option>
-                    <option value="2">ED.Fisica</option>
-                    <option value="3">Artes Visuais</option>
+                <select id="select-curso" name="curso" class="form-select" aria-label="Seleção de Curso" disabled>
+                    <option selected>Cursos</option>
                 </select>
             </div>
         </div>
@@ -156,123 +156,70 @@
 
 </html>
 
-<%--<script>--%>
-<%--    const alunos = [--%>
-<%--        { matricula: "2023001", nome: "Ana Souza", curso: "Administração", risco: 0.15, email: "ana.souza@ufsm.br", cpf: "111.222.333-44", nascimento: "15/03/2002", telefone: "(55) 99999-0001", endereco: "Rua A, 123", frequencia: "95%", media: "8.5" },--%>
-<%--        { matricula: "2023002", nome: "Bruno Lima", curso: "Engenharia Civil", risco: 0.45, email: "bruno.lima@ufsm.br", cpf: "222.333.444-55", nascimento: "20/07/2001", telefone: "(55) 99999-0002", endereco: "Rua B, 456", frequencia: "88%", media: "7.2" },--%>
-<%--        { matricula: "654646563456", nome: "Henry", curso: "Sistemas para Internet", risco: 0.85, email: "henry@ufsm.br", cpf: "999.999.999-99", nascimento: "12/05/1912", telefone: "(55) 99999-9999", endereco: "R. dos Bobos, 0", frequencia: "55%", media: "6.2" },--%>
-<%--        { matricula: "2023004", nome: "Daniela Rocha", curso: "Ciência da Computação", risco: 0.75, email: "daniela.rocha@ufsm.br", cpf: "444.555.666-77", nascimento: "30/11/2003", telefone: "(55) 99999-0004", endereco: "Rua D, 101", frequencia: "82%", media: "7.0" },--%>
-<%--        { matricula: "2023005", nome: "Eduardo Tavares", curso: "Psicologia", risco: 0.90, email: "eduardo.tavares@ufsm.br", cpf: "555.666.777-88", nascimento: "05/01/2000", telefone: "(55) 99999-0005", endereco: "Rua E, 212", frequencia: "70%", media: "5.5" },--%>
-<%--        { matricula: "2023001", nome: "Ana Souza", curso: "Administração", risco: 0.15, email: "ana.souza@ufsm.br", cpf: "111.222.333-44", nascimento: "15/03/2002", telefone: "(55) 99999-0001", endereco: "Rua A, 123", frequencia: "95%", media: "8.5" },--%>
-<%--        { matricula: "2023002", nome: "Bruno Lima", curso: "Engenharia Civil", risco: 0.45, email: "bruno.lima@ufsm.br", cpf: "222.333.444-55", nascimento: "20/07/2001", telefone: "(55) 99999-0002", endereco: "Rua B, 456", frequencia: "88%", media: "7.2" },--%>
-<%--        { matricula: "6546465", nome: "Henry", curso: "Sistemas para Internet", risco: 0.85, email: "henry@ufsm.br", cpf: "999.999.999-99", nascimento: "12/05/1912", telefone: "(55) 99999-9999", endereco: "R. dos Bobos, 0", frequencia: "55%", media: "6.2" },--%>
-<%--    ];--%>
+<script>
+    // 1. Defina a URL do seu Servlet que buscará os cursos
+    // (Ajuste a URL se o seu Servlet estiver mapeado de forma diferente)
+    const CURSOS_API_URL = '/api/cursos';
 
-<%--    const tbody = document.getElementById('table-body');--%>
-<%--    const modalBody = document.getElementById('modal-body-content');--%>
+    // Obtém referências aos elementos SELECT
+    const selectCentro = document.getElementById('select-centro');
+    const selectCurso = document.getElementById('select-curso');
 
-<%--    alunos.forEach(aluno => {--%>
-<%--        const risco = aluno.risco;--%>
-<%--        let nivelRisco = '';--%>
-<%--        let icone = '';--%>
-<%--        let corClasse = '';--%>
+    // Adiciona um listener para quando o valor do Centro mudar
+    selectCentro.addEventListener('change', function() {
+        const centroId = this.value; // Pega o ID do centro selecionado
 
-<%--        if (risco <= 0.3) {--%>
-<%--            nivelRisco = 'Baixo';--%>
-<%--            icone = 'fa-thumbs-up';--%>
-<%--            corClasse = 'text-blue-500';--%>
-<%--        } else if (risco <= 0.7) {--%>
-<%--            nivelRisco = 'Moderado';--%>
-<%--            icone = 'fa-triangle-exclamation';--%>
-<%--            corClasse = 'text-yellow-500';--%>
-<%--        } else {--%>
-<%--            nivelRisco = 'Alto';--%>
-<%--            icone = 'fa-triangle-exclamation';--%>
-<%--            corClasse = 'text-red-500';--%>
-<%--        }--%>
+        // Limpa e exibe status de carregamento no select de cursos
+        selectCurso.innerHTML = '<option selected disabled>Carregando Cursos...</option>';
+        selectCurso.disabled = true;
 
-<%--        const row = document.createElement('tr');--%>
-<%--        row.innerHTML = `--%>
-<%--          <td>${aluno.matricula}</td>--%>
-<%--          <td>${aluno.nome}</td>--%>
-<%--          <td>${aluno.curso}</td>--%>
-<%--          <td class="${corClasse}">--%>
-<%--              ${nivelRisco} (${(risco * 100).toFixed(1)}%)--%>
-<%--              <i class="fa-solid ${icone}"></i>--%>
-<%--          </td>--%>
-<%--          <td>--%>
-<%--              <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#studentModal" onclick="showStudentDetails('${aluno.matricula}')">--%>
-<%--                  <i class="fa-solid fa-arrow-up-right-from-square text-secondary"></i>--%>
-<%--              </button>--%>
-<%--          </td>--%>
-<%--      `;--%>
-<%--        tbody.appendChild(row);--%>
-<%--    });--%>
+        if (!centroId) {
+            // Se o usuário selecionar a opção vazia/padrão
+            selectCurso.innerHTML = '<option value="" selected disabled>Selecione um Centro primeiro</option>';
+            return;
+        }
 
-<%--    function showStudentDetails(matricula) {--%>
-<%--        const aluno = alunos.find(a => a.matricula === matricula);--%>
-<%--        if (!aluno) return;--%>
+        // 2. Faz a requisição AJAX para o Servlet, passando o ID do centro como parâmetro
+        const urlComFiltro = `${CURSOS_API_URL}?centroId=${centroId}`;
 
-<%--        let nivelRisco = '';--%>
-<%--        if (aluno.risco <= 0.3) nivelRisco = 'Baixo';--%>
-<%--        else if (aluno.risco <= 0.7) nivelRisco = 'Moderado';--%>
-<%--        else nivelRisco = 'Alto';--%>
+        fetch(urlComFiltro)
+            .then(response => {
+                if (!response.ok) {
+                    // Trata erros de resposta HTTP (ex: 404, 500)
+                    throw new Error('Erro ao buscar dados do servidor. Status: ' + response.status);
+                }
+                return response.json(); // Converte a resposta JSON em um Array/Objeto JavaScript
+            })
+            .then(data => {
+                // 3. Popula o dropdown de Cursos
 
-<%--        modalBody.innerHTML = `--%>
-<%--            <div class="gap-4">--%>
-<%--                <div class="row">--%>
-<%--                    <div class="col-md-2 mb-3">--%>
-<%--                                    <img src="${pageContext.request.contextPath}/img/henryfelizeanimado.png" class="img-fluid" alt="Foto do Aluno" style="width: 120px; height: 120px; object-fit: cover;">--%>
-<%--                    </div>--%>
-<%--                    <div class="col-md-9 mb-3">--%>
-<%--                        <h5 class="text-secondary2"><b>Aluno:</b> ${aluno.nome}</h5>--%>
-<%--                        <h5 class="text-secondary2"><b>Matrícula:</b> ${aluno.matricula}</h5>--%>
-<%--                    </div>--%>
-<%--                    <div class="col-md-1 mb-3">--%>
-<%--                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-<%--                <div class="flex-grow-1">--%>
-<%--                    <div class="row">--%>
-<%--                        <div class="col-md-6 mb-3">--%>
-<%--                            <label class="form-label">Email</label>--%>
-<%--                            <input type="text" class="form-control" value="${aluno.email}" readonly>--%>
-<%--                        </div>--%>
-<%--                        <div class="col-md-6 mb-3">--%>
-<%--                            <label class="form-label">CPF</label>--%>
-<%--                            <input type="text" class="form-control" value="${aluno.cpf}" readonly>--%>
-<%--                        </div>--%>
-<%--                        <div class="col-md-6 mb-3">--%>
-<%--                            <label class="form-label">Curso</label>--%>
-<%--                            <input type="text" class="form-control" value="${aluno.curso}" readonly>--%>
-<%--                        </div>--%>
-<%--                        <div class="col-md-6 mb-3">--%>
-<%--                            <label class="form-label">Data de nascimento</label>--%>
-<%--                            <input type="text" class="form-control" value="${aluno.nascimento}" readonly>--%>
-<%--                        </div>--%>
-<%--                        <div class="col-md-6 mb-3">--%>
-<%--                            <label class="form-label">Telefone</label>--%>
-<%--                            <input type="text" class="form-control" value="${aluno.telefone}" readonly>--%>
-<%--                        </div>--%>
-<%--                         <div class="col-md-3 mb-3">--%>
-<%--                            <label class="form-label">Frequência</label>--%>
-<%--                            <input type="text" class="form-control" value="${aluno.frequencia}" readonly>--%>
-<%--                        </div>--%>
-<%--                         <div class="col-md-3 mb-3">--%>
-<%--                            <label class="form-label">Média Geral</label>--%>
-<%--                            <input type="text" class="form-control" value="${aluno.media}" readonly>--%>
-<%--                        </div>--%>
-<%--                        <div class="col-md-6 mb-3">--%>
-<%--                            <label class="form-label">Endereço</label>--%>
-<%--                            <input type="text" class="form-control" value="${aluno.endereco}" readonly>--%>
-<%--                        </div>--%>
-<%--                         <div class="col-md-6 mb-3">--%>
-<%--                            <label class="form-label">Risco</label>--%>
-<%--                            <input type="text" class="form-control" value="${nivelRisco}" readonly>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--        `;--%>
-<%--    }--%>
-<%--</script>--%>
+                // Limpa as opções de carregamento
+                selectCurso.innerHTML = '';
+
+                // Adiciona a opção padrão
+                const defaultOption = document.createElement('option');
+                defaultOption.value = "";
+                defaultOption.textContent = "--- Selecione o Curso ---";
+                defaultOption.selected = true;
+                defaultOption.disabled = true;
+                selectCurso.appendChild(defaultOption);
+
+                // Adiciona as novas opções a partir dos dados retornados
+                data.forEach(curso => {
+                    const option = document.createElement('option');
+                    // Assume que o objeto JSON retornado tem as propriedades 'id' e 'nome'
+                    option.value = curso.id;
+                    option.textContent = curso.nome;
+                    selectCurso.appendChild(option);
+                });
+
+                // Habilita o select de cursos
+                selectCurso.disabled = false;
+            })
+            .catch(error => {
+                console.error('Erro na requisição AJAX:', error);
+                // Exibe mensagem de erro
+                selectCurso.innerHTML = '<option selected disabled>Falha ao carregar cursos</option>';
+            });
+    });
+</script>
