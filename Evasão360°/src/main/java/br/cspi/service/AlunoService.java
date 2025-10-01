@@ -14,4 +14,9 @@ public class AlunoService {
         return dao.getAlunos();
     }
 
+    public ArrayList<Alunos> getAlunosByCurso( int cursoId) {
+        AlunoDAO dao = new AlunoDAO();
+        return dao.getAlunosByCurso(cursoId);
+    }
+
 }
