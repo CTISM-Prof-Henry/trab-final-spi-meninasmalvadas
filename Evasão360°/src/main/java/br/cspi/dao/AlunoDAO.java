@@ -102,5 +102,34 @@ public class AlunoDAO {
 
         return alunos;
     }
-}
 
+    public Alunos getAluno(String matricula) {
+        Alunos a = new Alunos();
+        try {
+            Connection conn = ConectarBancoDados.conectarBancoDados();
+
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("select * from alunos where matricula = " + matricula);
+
+
+            a.setMatricula(rs.getString("matricula"));
+            a.setNome(rs.getString("nome"));
+            a.setCurso_id(rs.getInt("curso_id"));
+            a.setRisco(rs.getDouble("risco"));
+            a.setEmail(rs.getString("email"));
+            a.setCpf(rs.getString("cpf"));
+            a.setNascimento(rs.getDate("nascimento").toLocalDate());
+            a.setTelefone(rs.getString("telefone"));
+            a.setEndereco(rs.getString("endereco"));
+            a.setFrequencia(rs.getDouble("frequencia"));
+            a.setMedia(rs.getDouble("media"));
+
+
+        } catch (SQLException | ClassNotFoundException e) {
+
+
+        }
+        return a;
+    }
+
+}

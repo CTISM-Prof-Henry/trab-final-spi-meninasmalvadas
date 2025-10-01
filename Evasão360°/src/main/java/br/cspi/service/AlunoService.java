@@ -19,4 +19,9 @@ public class AlunoService {
         return dao.getAlunosByCurso(cursoId);
     }
 
+    public Alunos getAluno(String matricula) {
+        AlunoDAO dao = new AlunoDAO();
+        return dao.getAluno(matricula);
+    }
+
 }

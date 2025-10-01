@@ -57,5 +57,12 @@ public class AlunoController {
         return "home"; // Nome do seu arquivo JSP
     }
 
+    @GetMapping("/aluno")
+    public String alunoDetalhe(String matricula, Model model) {
+        Alunos aluno = new AlunoService().getAluno(matricula);
+        model.addAttribute("aluno", aluno);
+        return "home";
+    }
+
 
 }
