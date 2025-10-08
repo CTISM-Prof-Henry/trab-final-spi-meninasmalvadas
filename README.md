@@ -1,53 +1,68 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/agg6sSBC)
-# Título do repositório
+# Documentação: Evasão 360
 
-Descrição curta do repositório.
+##[https://github.com/.git](https://github.com/CTISM-Prof-Henry/trab-final-spi-meninasmalvadas.git)
 
-## Sumário
+## O que é
 
-* [Pré-requisitos](#pré-requisitos)
-* [Instalação](#instalação)
-* [Instruções de uso](#instruções-de-uso)
-* [Contato](#contato)
-* [Bibliografia](#bibliografia)
+O **Evasão 360** é um sistema web desenvolvido para a disciplina do prof Henry, Engenharia de Software II, pela equipe das Meninas Malvadas: Julia Jaeger, Nicole Grazzioli e Willian Potkova. 
 
-## Pré-requisitos
+A aplicação tem como objetivo principal auxiliar coordenadores e professores de instituições de ensino a identificar estudantes que apresentam um alto risco de evasão (abandono do curso), com base nos dados fornecidos (no caso, fictícios).
 
-Descreva aqui brevemente os pré-requisitos necessários para executar o código-fonte. Descreva também
-a configuração mínima da máquina em que o código foi desenvolvido, e se alguma configuração em particular é essencial
-para sua execução (por exemplo, placa de vídeo dedicada):
+## O que faz (funcionalidades)
 
-| Configuração        | Valor                    |
-|---------------------|--------------------------|
-| Sistema operacional | Windows 10 Pro (64 bits) |
-| Processador         | Intel core i7 9700       |
-| Memória RAM         | 16GB                     |
-| Necessita rede?     | Sim                      |
+* **Autenticação de login:** Acesso restrito a usuários autorizados (administradores, coordenadores) através de uma tela de login. Se o login (email e senha) existir na base de dados, o acesso é liberado.
+* **Painel de Monitoramento:** Após o login, o usuário é direcionado a um painel central que exibe uma tabela com a lista de alunos: matrícula, nome, curso e nível de risco de evasão de cada aluno (baixo, moderado ou alto). Há um botão de ajuda, que explica o que significa cada nível de risco. Também, pode-se filtrar por centro ou curso.
+* **Detalhamento de Alunos:** É possível visualizar as informações completas de um aluno específico, através de uma janela modal:
+    * Email
+    * CPF
+    * Curso
+    * Data de nascimento
+    * Telefone
+    * Frequência
+    * Média geral (notas)
+    * Endereço
+    * Risco
+* **Geração de Relatórios:** Uma página que permite a geração de relatórios (PDFs) para análises mais aprofundadas sobre os dados.
+    * Comparar cursos
+    * Evolução temporal da taxa de evasão (curso)
+    * Custo total das evasões (curso)
+
+## Tecnologias Utilizadas
+
+* **Ferramentas:** IntelliJ IDEA
+* **Backend:** Java 21, Spring Boot, Spring Web e Spring Data JPA
+* **Frontend:** JavaServer Pages (JSP) com JSTL renderizado pelo servidor
+* **Build e Dependências:** Apache Maven
+* **Banco de Dados:** PostgreSQL
+    * **Gerenciamento de Migrações:** Flyway, para versionamento e automação do schema do banco de dados
 
 
-## Instalação
+# Guia de instalação
+Como configurar o ambiente e executar o projeto
 
-Descreva aqui as instruções para instalação das ferramentas para execução do código-fonte: 
+### Pré requisitos
+* Git
+* JDK (Java Development Kit) versão 21 ou superior
+* Apache Maven
+* PostgreSQL
+* IDE Java recomendada: IntelliJ IDEA
 
-```bash
-sudo apt-get install nano
-```
+### Passo a passo
+1. Clone o repositório do projeto:
+git clone [https://github.com/CTISM-Prof-Henry/trab-final-spi-meninasmalvadas.git](https://github.com/CTISM-Prof-Henry/trab-final-spi-meninasmalvadas.git)
 
-## Instruções de Uso
+2. Configurar o banco de dados
+* Garanta que o serviço do PostgreSQL está rodando
+* Crie uma base de dados vazia chamada ```evasao360```
+* Ajuste suas credenciais do PostgreSQL para ```usuario: postgres``` e ```senha: 1234``` OU ajuste o arquivo ```scr/main/resources/application.properties``` com as suas credenciais
 
-Descreva aqui o passo-a-passo que outros usuários precisam realizar para conseguir executar com sucesso o código-fonte
-deste projeto:
+3. Executar a aplicação
+* Abra o projeto clonado na sua IDE
+* Execute a classe ```ProjetoSpringBootApplication.java```
+* O console da IDE vai mostrar o log de inicialização do Spring Boot, e o Flyway vai criar e popular as tabelas da base de dados
 
-```bash
-echo "olá mundo!"
-```
-
-## Contato
-
-O repositório foi originalmente desenvolvido por Fulano: [fulano@ufsm.br]()
-
-## Bibliografia
-
-Adicione aqui entradas numa lista com a documentação pertinente:
-
-* [Documentação coplin-db2](https://pypi.org/project/coplin-db2/)
+4. Acessar
+* Abra o navegador em [http://localhost:8080](http://localhost:8080)
+* Use as credenciais padrão de acesso:
+    * Email: ```admin@admin.com```
+    * Senha: ```admin```
