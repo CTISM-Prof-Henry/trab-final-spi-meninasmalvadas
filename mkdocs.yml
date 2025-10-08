@@ -1,5 +1,7 @@
-site_name: Evasão 360
+site_name: Documentação Evasão 360
 theme: readthedocs
+nav:
+  - Home: index.md
 markdown_extensions:
   - attr_list
   - footnotes
