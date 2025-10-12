@@ -29,4 +29,7 @@ public class Alunos {
     private String endereco;
     private double frequencia;
     private double media;
+
+    //nome do curso
+    private String cursoNome;
 }

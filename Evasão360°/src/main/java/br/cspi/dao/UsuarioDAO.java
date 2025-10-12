@@ -2,11 +2,13 @@ package br.cspi.dao;
 
 import br.cspi.dao.ConectarBancoDados;
 import br.cspi.model.Usuario;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class UsuarioDAO {
 
 //                   ALTERAR

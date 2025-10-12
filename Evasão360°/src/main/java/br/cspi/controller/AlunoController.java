@@ -5,6 +5,7 @@ import br.cspi.model.Alunos;
 import br.cspi.model.Centros;
 import br.cspi.model.Cursos;
 import br.cspi.service.AlunoService;
+import br.cspi.service.CentroService;
 import br.cspi.service.CursoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,8 +21,12 @@ import java.util.List;
 @Controller
 public class AlunoController {
     private final AlunoService alunoService;
-    public AlunoController(AlunoService alunoService) {
+    private final CursoService cursoService;
+    private final CentroService centroService;
+    public AlunoController(AlunoService alunoService, CursoService cursoService, CentroService centroService) {
         this.alunoService = alunoService;
+        this.cursoService = cursoService;
+        this.centroService = centroService;
     }
 
     @GetMapping("/home")
@@ -32,20 +37,20 @@ public class AlunoController {
             Model model) {
 
         // 1. Carrega todos os centros para o primeiro dropdown
-        ArrayList<Centros> centros = new CentroDAO().getCentros();
+        ArrayList<Centros> centros = this.centroService.getCentros();
         model.addAttribute("centros", centros);
 
         // 2. Lógica para carregar os Cursos, dependendo do Centro selecionado
         List<Cursos> cursos = Collections.emptyList();
         if ( centroId > -1) {
-            cursos = new CursoService().getCursosbyCentro(centroId);
+            cursos = this.cursoService.getCursosbyCentro(centroId);
         }
         model.addAttribute("cursos", cursos);
 
         // 3. Lógica para carregar os Alunos, dependendo do Curso selecionado
         List<Alunos> alunos = Collections.emptyList();
         if (cursoId > -1) {
-            alunos = new AlunoService().getAlunosByCurso(cursoId);
+            alunos = this.alunoService.getAlunosByCurso(cursoId);
         }
         model.addAttribute("alunos", alunos);
 
@@ -54,12 +59,12 @@ public class AlunoController {
         model.addAttribute("cursoSelecionadoId", cursoId);
 
 
-        return "home"; // Nome do seu arquivo JSP
+        return "home"; // Nome do JSP
     }
 
     @GetMapping("/aluno")
     public String alunoDetalhe(String matricula, Model model) {
-        Alunos aluno = new AlunoService().getAluno(matricula);
+        Alunos aluno = this.alunoService.getAluno(matricula);
         model.addAttribute("aluno", aluno);
         return "home";
     }

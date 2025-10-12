@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class LoginController {
+    private final LoginService loginService;
+    public LoginController(LoginService loginService) {
+        this.loginService = loginService;
+    }
 
 
     @GetMapping("/") //default
@@ -37,12 +41,12 @@ public class LoginController {
 
 
 
-        Usuario user = new LoginService().autenticar(email, senha);
+        Usuario user = this.loginService.autenticar(email, senha);
 
         if (user != null) {
             session.setAttribute("usuario", user);
             System.out.println("Login com sucesso");
-            return "redirect:home";
+            return "redirect:/home";
         } else {
 //            model.addAttribute("msg", "Login ou senha incorreto!");
             return "login";

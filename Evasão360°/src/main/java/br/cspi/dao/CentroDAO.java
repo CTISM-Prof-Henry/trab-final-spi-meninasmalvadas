@@ -2,6 +2,7 @@ package br.cspi.dao;
 
 import br.cspi.model.Alunos;
 import br.cspi.model.Centros;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -9,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+@Repository
 public class CentroDAO {
 
     public ArrayList<Centros> getCentros() {

@@ -4,6 +4,7 @@ import br.cspi.model.Cursos;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -12,6 +13,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class CursoDAO {
 
   public ArrayList<Cursos> getPorCentro(int centro_id) {
