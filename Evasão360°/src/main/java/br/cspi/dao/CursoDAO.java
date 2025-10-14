@@ -1,15 +1,13 @@
 package br.cspi.dao;
 
+import br.cspi.model.Centros;
 import br.cspi.model.Cursos;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,6 +76,41 @@ public class CursoDAO {
         }
 
         return cursos;
+    }
+
+    public Cursos getCursoById(int id) {
+        Cursos c = new Cursos();
+
+        try (Connection conn = ConectarBancoDados.conectarBancoDados();
+             PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM cursos WHERE id = ?")) {
+
+            // 2. Define o valor do parâmetro
+            pstmt.setInt(1, id);
+
+            // 3. Executa a consulta
+            try (ResultSet rs = pstmt.executeQuery()) {
+
+                if (rs.next()) {
+
+                    c.setId(rs.getInt("id"));
+                    c.setNome(rs.getString("nome"));
+                    c.setCentro_id(rs.getInt("centro_id"));
+
+                    // Adiciona o objeto Centro à lista
+
+                }
+
+
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao conectar");
+            e.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Erro ao conectar");
+            ex.printStackTrace();
+        }
+
+        return c;
     }
 }
 

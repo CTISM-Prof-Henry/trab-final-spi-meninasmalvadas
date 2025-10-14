@@ -101,6 +101,9 @@ public class UsuarioDAO {
                     u.setEmail(rs.getString("email"));
                     u.setSenha(rs.getString("senha"));
                     u.setAtivo(rs.getBoolean("ativo"));
+                    u.setPermissao(Usuario.tipo_permissao.valueOf(rs.getString("permissao")));
+                    u.setCentro_id(rs.getInt("centro_id"));
+                    u.setCurso_id(rs.getInt("curso_id"));
 
 
                     usuarios.add(u);

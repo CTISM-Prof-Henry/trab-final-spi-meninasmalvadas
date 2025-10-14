@@ -23,6 +23,17 @@ public class Usuario {
     private String senha;
     private boolean ativo;
 
+    public enum tipo_permissao {
+            GERAL,
+            CENTRO,
+            CURSO
+    }
+
+    private tipo_permissao permissao;
+
+    private int centro_id;
+    private int curso_id;
+
 
 
 

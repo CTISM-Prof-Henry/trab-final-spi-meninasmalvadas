@@ -4,6 +4,7 @@ import br.cspi.dao.CentroDAO;
 import br.cspi.model.Centros;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 @Service
@@ -16,5 +17,9 @@ public class CentroService {
     public ArrayList<Centros> getCentros() {
 //        CentroDAO dao = new CentroDAO();
         return this.centroDAO.getCentros();
+    }
+
+    public ArrayList<Centros> getCentro(int id) throws SQLException {
+        return centroDAO.getCentroById(id);
     }
 }
