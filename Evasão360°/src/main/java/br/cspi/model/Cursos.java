@@ -15,7 +15,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Cursos {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private int id;
     private String nome;
     private int centro_id;

@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <jsp:include page="shared/header.jsp" />
+    <jsp:include page="shared/header.jsp"/>
 
     <title>Home</title>
 </head>
@@ -27,7 +27,7 @@
 
     <div class="flex flex-col gap-3">
         <div class="flex flex-nowrap gap-3 font-bold items-center justify-center w-full">
-            <img width="6%" src="${pageContext.request.contextPath}/img/logo-ufsm.webp" />
+            <img width="6%" src="${pageContext.request.contextPath}/img/logo-ufsm.webp"/>
             <h1>EVASÃO 360</h1>
         </div>
 

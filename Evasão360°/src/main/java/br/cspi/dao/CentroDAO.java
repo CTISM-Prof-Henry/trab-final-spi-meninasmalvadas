@@ -1,6 +1,5 @@
 package br.cspi.dao;
 
-import br.cspi.model.Alunos;
 import br.cspi.model.Centros;
 import org.springframework.stereotype.Repository;
 
@@ -49,8 +48,7 @@ public class CentroDAO {
 
 
         // O try-with-resources garante que todos os recursos (conn, pstmt, rs) sejam fechados
-        try (Connection conn = ConectarBancoDados.conectarBancoDados();
-             PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM centros WHERE id = ?")) {
+        try (Connection conn = ConectarBancoDados.conectarBancoDados(); PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM centros WHERE id = ?")) {
 
             // 2. Define o valor do parâmetro
             pstmt.setInt(1, id);
@@ -78,4 +76,4 @@ public class CentroDAO {
 
         return centros;
     }
-    }
+}

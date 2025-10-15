@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class LoginController {
     private final LoginService loginService;
+
     public LoginController(LoginService loginService) {
         this.loginService = loginService;
     }
@@ -34,11 +35,10 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String login( String email, String senha, HttpSession session) {
+    public String login(String email, String senha, HttpSession session) {
         System.out.println("Realizando o login o usuario" + email);
         System.out.println(email);
         System.out.println(senha);
-
 
 
         Usuario user = this.loginService.autenticar(email, senha);

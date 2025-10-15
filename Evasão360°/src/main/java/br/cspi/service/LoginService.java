@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class LoginService {
     private final UsuarioDAO usuarioDAO;
+
     public LoginService(UsuarioDAO usuarioDAO) {
         this.usuarioDAO = usuarioDAO;
     }

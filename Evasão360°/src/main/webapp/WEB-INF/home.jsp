@@ -5,7 +5,7 @@
 <html lang="en">
 
 <head>
-    <jsp:include page="shared/header.jsp" />
+    <jsp:include page="shared/header.jsp"/>
 
     <title>Home</title>
 </head>
@@ -29,7 +29,7 @@
 
     <div class="flex flex-col gap-3">
         <div class="flex flex-nowrap gap-3 font-bold items-center justify-center w-full">
-            <img width="6%" src="${pageContext.request.contextPath}/img/logo-ufsm.webp" />
+            <img width="6%" src="${pageContext.request.contextPath}/img/logo-ufsm.webp"/>
             <h1>EVASÃO 360</h1>
         </div>
 
@@ -41,32 +41,32 @@
             <div></div>
 
             <div class="flex flex-nowrap gap-1">
-            <form action="/home" method="get">
+                <form action="/home" method="get">
 
 
-                <select name="centroId" class="form-select" id="centroSelect" onchange="this.form.submit()">
-                    <option value="">Centros</option>
-                    <c:forEach var="centro" items="${centros}">
-                        <option value="${centro.id}"
-                                <c:if test="${centroSelecionadoId == centro.id}">selected</c:if>>
-                                ${centro.nome}
-                        </option>
-                    </c:forEach>
-                </select>
+                    <select name="centroId" class="form-select" id="centroSelect" onchange="this.form.submit()">
+                        <option value="">Centros</option>
+                        <c:forEach var="centro" items="${centros}">
+                            <option value="${centro.id}"
+                                    <c:if test="${centroSelecionadoId == centro.id}">selected</c:if>>
+                                    ${centro.nome}
+                            </option>
+                        </c:forEach>
+                    </select>
 
 
-                <select name="cursoId" class="form-select" id="cursoSelect" onchange="this.form.submit()">
-                    <option value="">Cursos</option>
+                    <select name="cursoId" class="form-select" id="cursoSelect" onchange="this.form.submit()">
+                        <option value="">Cursos</option>
 
-                    <%-- Esta lista só é preenchida se um Centro foi selecionado no Controller --%>
-                    <c:forEach var="curso" items="${cursos}">
-                        <option value="${curso.id}"
-                                <c:if test="${cursoSelecionadoId == curso.id}">selected</c:if>>
-                                ${curso.nome}
-                        </option>
-                    </c:forEach>
-                </select>
-            </form>
+                        <%-- Esta lista só é preenchida se um Centro foi selecionado no Controller --%>
+                        <c:forEach var="curso" items="${cursos}">
+                            <option value="${curso.id}"
+                                    <c:if test="${cursoSelecionadoId == curso.id}">selected</c:if>>
+                                    ${curso.nome}
+                            </option>
+                        </c:forEach>
+                    </select>
+                </form>
             </div>
 
 
@@ -85,39 +85,43 @@
                 </tr>
                 </thead>
                 <tbody id="table-body">
-                    <c:forEach items="${alunos}" var="aluno">
-                        <tr>
-                            <td>${aluno.matricula}</td>
-                            <td>${aluno.nome}</td>
-                            <td>${aluno.curso_id}</td>
-                            <c:choose>
-                                <c:when test="${aluno.risco >= 0.7}">
-                                    <td class="text-red-500">
-                                        Alto (<fmt:formatNumber value="${aluno.risco * 100}" maxFractionDigits="1" minFractionDigits="1"/>%)
-                                        <i class="fa-solid fa-triangle-exclamation"></i>
-                                    </td>
-                                </c:when>
-                                <c:when test="${aluno.risco > 0.3}">
-                                    <td class="text-yellow-500">
-                                        Moderado (<fmt:formatNumber value="${aluno.risco * 100}" maxFractionDigits="1" minFractionDigits="1"/>%)
-                                        <i class="fa-solid fa-triangle-exclamation"></i>
-                                    </td>
-                                </c:when>
-                                <c:otherwise>
-                                    <td class="text-blue-500">
-                                        Baixo (<fmt:formatNumber value="${aluno.risco * 100}" maxFractionDigits="1" minFractionDigits="1"/>%)
-                                        <i class="fa-solid fa-thumbs-up"></i>
-                                    </td>
-                                </c:otherwise>
-                            </c:choose>
-                            <td>
+                <c:forEach items="${alunos}" var="aluno">
+                    <tr>
+                        <td>${aluno.matricula}</td>
+                        <td>${aluno.nome}</td>
+                        <td>${aluno.curso_id}</td>
+                        <c:choose>
+                            <c:when test="${aluno.risco >= 0.7}">
+                                <td class="text-red-500">
+                                    Alto (<fmt:formatNumber value="${aluno.risco * 100}" maxFractionDigits="1"
+                                                            minFractionDigits="1"/>%)
+                                    <i class="fa-solid fa-triangle-exclamation"></i>
+                                </td>
+                            </c:when>
+                            <c:when test="${aluno.risco > 0.3}">
+                                <td class="text-yellow-500">
+                                    Moderado (<fmt:formatNumber value="${aluno.risco * 100}" maxFractionDigits="1"
+                                                                minFractionDigits="1"/>%)
+                                    <i class="fa-solid fa-triangle-exclamation"></i>
+                                </td>
+                            </c:when>
+                            <c:otherwise>
+                                <td class="text-blue-500">
+                                    Baixo (<fmt:formatNumber value="${aluno.risco * 100}" maxFractionDigits="1"
+                                                             minFractionDigits="1"/>%)
+                                    <i class="fa-solid fa-thumbs-up"></i>
+                                </td>
+                            </c:otherwise>
+                        </c:choose>
+                        <td>
 
-                                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#studentModal" onclick="showStudentDetails('${aluno.matricula}')">
-                                    <i class="fa-solid fa-arrow-up-right-from-square text-secondary"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    </c:forEach>
+                            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#studentModal"
+                                    onclick="showStudentDetails('${aluno.matricula}')">
+                                <i class="fa-solid fa-arrow-up-right-from-square text-secondary"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </c:forEach>
                 </tbody>
             </table>
         </div>
@@ -126,7 +130,8 @@
 
     <div class="pt-3">
         <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#tutorialModal">
-            <img width="6%" src="${pageContext.request.contextPath}/img/losango.png" class="float-left" alt="coiso la" style="width: 40px; height: 60px; padding-top: 15px;">
+            <img width="6%" src="${pageContext.request.contextPath}/img/losango.png" class="float-left" alt="coiso la"
+                 style="width: 40px; height: 60px; padding-top: 15px;">
             <p style="padding-top: 20px; padding-left: 50px;">Tutorial risco</p>
         </button>
     </div>
@@ -140,14 +145,16 @@
                 <div class="gap-4">
                     <div class="row">
                         <div class="col-md-2 mb-3">
-                            <img src="img/henryfelizeanimado.png" class="img-fluid" alt="Foto do Aluno" style="width: 120px; height: 120px; object-fit: cover;">
+                            <img src="img/henryfelizeanimado.png" class="img-fluid" alt="Foto do Aluno"
+                                 style="width: 120px; height: 120px; object-fit: cover;">
                         </div>
-                        <div class="col-md-9 mb-3" >
+                        <div class="col-md-9 mb-3">
                             <h5 class="text-secondary2"><b>Aluno:</b> ${aluno.nome}</h5>
                             <h5 class="text-secondary2"><b>Matrícula:</b> ${aluno.matricula}</h5>
                         </div>
                         <div class="col-md-1 mb-3">
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X
+                            </button>
                         </div>
                     </div>
                     <div class="flex-grow-1">
@@ -191,7 +198,7 @@
                         </div>
                     </div>
                 </div>
-<%--                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>--%>
+                <%--                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>--%>
             </div>
         </div>
     </div>

@@ -1,12 +1,10 @@
 package br.cspi.dao;
 
 import br.cspi.model.Alunos;
-import br.cspi.model.Usuario;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 
 @Repository
 public class AlunoDAO {
@@ -109,12 +107,12 @@ public class AlunoDAO {
     public Alunos getAluno(String matricula) {
         String sql = "SELECT a.*, c.nome AS nome_curso FROM alunos a JOIN cursos c ON a.curso_id = c.id WHERE a.matricula = ?";
         try (Connection conn = ConectarBancoDados.conectarBancoDados();
-                PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, matricula);
             ResultSet rs = stmt.executeQuery();
 
-            if(rs.next()) {
+            if (rs.next()) {
                 Alunos a = new Alunos();
                 a.setMatricula(rs.getString("matricula"));
                 a.setNome(rs.getString("nome"));

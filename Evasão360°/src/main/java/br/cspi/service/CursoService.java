@@ -11,6 +11,7 @@ import java.util.List;
 @Service
 public class CursoService {
     private final CursoDAO cursoDAO;
+
     public CursoService(CursoDAO cursoDAO) {
         this.cursoDAO = cursoDAO;
     }
@@ -20,10 +21,11 @@ public class CursoService {
         return this.cursoDAO.getPorCentro(centro_id);
     }
 
-    public ArrayList<Cursos> getCursos( ) {
+    public ArrayList<Cursos> getCursos() {
 //        CursoDAO dao = new CursoDAO();
         return this.cursoDAO.getCursos();
     }
+
     public Cursos getCursoById(int id) {
         System.out.println(this.cursoDAO.getCursoById(id) + "Passou aqui");
         return this.cursoDAO.getCursoById(id);

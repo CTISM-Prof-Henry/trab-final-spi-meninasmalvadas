@@ -8,9 +8,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 @Component
 public class AutorizadorInterceptor implements HandlerInterceptor {
     @Override
-    public boolean preHandle(HttpServletRequest request,
-                             HttpServletResponse response,
-                             Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
         if (request.getSession().getAttribute("usuario") == null) {
             response.sendRedirect("/login");

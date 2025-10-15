@@ -1,6 +1,5 @@
 package br.cspi.dao;
 
-import br.cspi.dao.ConectarBancoDados;
 import br.cspi.model.Usuario;
 import org.springframework.stereotype.Repository;
 
@@ -11,7 +10,7 @@ import java.util.List;
 @Repository
 public class UsuarioDAO {
 
-//                   ALTERAR
+    //ALTERAR
     public String alterer(Usuario usuario, int id) {
         try {
             Connection conn = ConectarBancoDados.conectarBancoDados();
@@ -36,7 +35,7 @@ public class UsuarioDAO {
         return "Alterado com Sucesso";
     }
 
-//                   EXCLUIR
+    //EXCLUIR
     public String excluir(int id) {
 
         try {
@@ -48,7 +47,7 @@ public class UsuarioDAO {
             stmt.setInt(1, id);
             stmt.execute();
 
-            if(stmt.getUpdateCount()<=0){
+            if (stmt.getUpdateCount() <= 0) {
                 return "Nenhuem usuario exculuido";
             }
 
@@ -60,7 +59,7 @@ public class UsuarioDAO {
         return "Excluido com sucesso";
     }
 
-//                   INSERIR
+    //INSERIR
     public String inserir(Usuario usuario) {
 
 
@@ -87,42 +86,42 @@ public class UsuarioDAO {
         return "Inserido com Sucesso";
     }
 
-//                 GET USUARIOS
+    //                 GET USUARIOS
     public ArrayList<Usuario> getUsuarios() {
-            ArrayList<Usuario> usuarios = new ArrayList<>();
+        ArrayList<Usuario> usuarios = new ArrayList<>();
 
-            try {
-                Connection conn = ConectarBancoDados.conectarBancoDados();
+        try {
+            Connection conn = ConectarBancoDados.conectarBancoDados();
 
-                Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery("select * from usuario");
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("select * from usuario");
 
-                while (rs.next()) {
-                    Usuario u = new Usuario();
-                    u.setId(rs.getInt("id"));
-                    u.setNome(rs.getString("nome"));
-                    u.setEmail(rs.getString("email"));
-                    u.setSenha(rs.getString("senha"));
-                    u.setAtivo(rs.getBoolean("ativo"));
-                    u.setPermissao(Usuario.tipo_permissao.valueOf(rs.getString("permissao")));
-                    u.setCentro_id(rs.getInt("centro_id"));
-                    u.setCurso_id(rs.getInt("curso_id"));
+            while (rs.next()) {
+                Usuario u = new Usuario();
+                u.setId(rs.getInt("id"));
+                u.setNome(rs.getString("nome"));
+                u.setEmail(rs.getString("email"));
+                u.setSenha(rs.getString("senha"));
+                u.setAtivo(rs.getBoolean("ativo"));
+                u.setPermissao(Usuario.tipo_permissao.valueOf(rs.getString("permissao")));
+                u.setCentro_id(rs.getInt("centro_id"));
+                u.setCurso_id(rs.getInt("curso_id"));
 
 
-                    usuarios.add(u);
+                usuarios.add(u);
 
-                }
-
-            } catch (SQLException e) {
-                System.out.println("Erro ao conectar");
-                e.printStackTrace();
-            } catch (ClassNotFoundException ex) {
-                System.out.println("Erro ao conectar");
-                ex.printStackTrace();
             }
 
-            return usuarios;
+        } catch (SQLException e) {
+            System.out.println("Erro ao conectar");
+            e.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Erro ao conectar");
+            ex.printStackTrace();
         }
+
+        return usuarios;
+    }
 
 
     public List<Usuario> listarTodos() {

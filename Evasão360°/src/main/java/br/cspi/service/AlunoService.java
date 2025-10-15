@@ -9,6 +9,7 @@ import java.util.ArrayList;
 @Service
 public class AlunoService {
     private final AlunoDAO alunoDAO;
+
     public AlunoService(AlunoDAO alunoDAO) {
         this.alunoDAO = alunoDAO;
     }
@@ -18,7 +19,7 @@ public class AlunoService {
         return this.alunoDAO.getAlunos();
     }
 
-    public ArrayList<Alunos> getAlunosByCurso( int cursoId) {
+    public ArrayList<Alunos> getAlunosByCurso(int cursoId) {
 //        AlunoDAO dao = new AlunoDAO();
         return this.alunoDAO.getAlunosByCurso(cursoId);
     }

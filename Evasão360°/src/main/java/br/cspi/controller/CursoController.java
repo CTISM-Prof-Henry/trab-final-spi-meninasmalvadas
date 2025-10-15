@@ -10,6 +10,7 @@ import java.util.ArrayList;
 @RequestMapping("/cursos")
 public class CursoController {
     private final CursoService cursoService;
+
     public CursoController(CursoService cursoService) {
         this.cursoService = cursoService;
     }

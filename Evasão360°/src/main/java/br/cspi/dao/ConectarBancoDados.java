@@ -19,7 +19,7 @@ public class ConectarBancoDados {
         return conn;
     }
 
-    public Connection conectarBancoPostgresMySql(){
+    public Connection conectarBancoPostgresMySql() {
         return null;
     }
 }

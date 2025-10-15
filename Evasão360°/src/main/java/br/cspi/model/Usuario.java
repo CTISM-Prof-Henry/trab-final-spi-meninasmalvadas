@@ -24,17 +24,14 @@ public class Usuario {
     private boolean ativo;
 
     public enum tipo_permissao {
-            GERAL,
-            CENTRO,
-            CURSO
+        GERAL,
+        CENTRO,
+        CURSO
     }
 
     private tipo_permissao permissao;
-
     private int centro_id;
     private int curso_id;
-
-
 
 
 }
