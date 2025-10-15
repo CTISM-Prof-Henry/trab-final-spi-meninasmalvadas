@@ -74,4 +74,4 @@ Como configurar o ambiente e executar o projeto
 - adicionar o caminho ao PATH do windows: ```Editar as variáveis de ambiente do sistema -> Propriedades do Sistema -> Variáveis de Ambiente -> Variáveis do sistema -> Path -> Editar variável de ambiente -> Novo``` -> colar o caminho (com \bin) -> OK
 - CMD: ```C:\pmd-bin-7.17.0\bin\pmd.bat" check -d "(caminho)\trab-final-spi-meninasmalvadas\Evasão360°\src" -R category/java/bestpractices.xml,category/java/codestyle.xml,category/java/errorprone.xml,category/java/performance.xml,category/java/security.xml -f html -r relatorio.html```
 
-endereço JDK: C:\Program Files\Eclipse Adoptium\jdk-21.0.6.7-hotspot
+endereço JDK: C:\Program Files\Eclipse Adoptium\jdk-21.0.6.7-hotspot\bin
