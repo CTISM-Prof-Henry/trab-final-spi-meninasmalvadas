@@ -78,10 +78,8 @@ public class CursoDAO {
         return cursos;
     }
 
-    // NO CursoDAO
     public Cursos getCursoById(int id) {
-        Cursos c = null; // Mude a inicialização para null.
-        // Cuidado: se a DAO lança exceção, você pode querer retornar 'null' ou lançar uma RuntimeException.
+        Cursos c = null;
 
         try (Connection conn = ConectarBancoDados.conectarBancoDados();
              PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM cursos WHERE id = ?")) {
@@ -91,58 +89,21 @@ public class CursoDAO {
             try (ResultSet rs = pstmt.executeQuery()) {
 
                 if (rs.next()) {
-                    // SOMENTE SE ENCONTRAR, crie o objeto Cursos
                     c = new Cursos();
                     c.setId(rs.getInt("id"));
                     c.setNome(rs.getString("nome"));
                     c.setCentro_id(rs.getInt("centro_id"));
                 }
-                // Se rs.next() for falso, 'c' permanece null
 
             }
-        } catch (SQLException | ClassNotFoundException e) { // Trate as exceções juntas
+        } catch (SQLException | ClassNotFoundException e) {
             System.out.println("Erro ao buscar curso por ID: " + e.getMessage());
             e.printStackTrace();
-            // Em caso de erro GERAL, é melhor relançar a exceção ou retornar null (depende da sua arquitetura)
-            return null; // Retorne null em caso de erro também, para o teste passar.
+            return null;
         }
 
-        return c; // Retorna o objeto preenchido ou null.
+        return c;
     }
 
-//    public Cursos getCursoById(int id) {
-//        Cursos c = new Cursos();
-//
-//        try (Connection conn = ConectarBancoDados.conectarBancoDados();
-//             PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM cursos WHERE id = ?")) {
-//
-//            // 2. Define o valor do parâmetro
-//            pstmt.setInt(1, id);
-//
-//            // 3. Executa a consulta
-//            try (ResultSet rs = pstmt.executeQuery()) {
-//
-//                if (rs.next()) {
-//
-//                    c.setId(rs.getInt("id"));
-//                    c.setNome(rs.getString("nome"));
-//                    c.setCentro_id(rs.getInt("centro_id"));
-//
-//                    // Adiciona o objeto Centro à lista
-//
-//                }
-//
-//
-//            }
-//        } catch (SQLException e) {
-//            System.out.println("Erro ao conectar");
-//            e.printStackTrace();
-//        } catch (ClassNotFoundException ex) {
-//            System.out.println("Erro ao conectar");
-//            ex.printStackTrace();
-//        }
-//
-//        return c;
-//    }
 }
 

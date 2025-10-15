@@ -4,7 +4,6 @@ import br.cspi.dao.CentroDAO;
 import br.cspi.model.Centros;
 import org.junit.jupiter.api.Test;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

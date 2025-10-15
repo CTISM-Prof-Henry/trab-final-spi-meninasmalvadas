@@ -1,20 +1,10 @@
 package br.cspi.service;
 
 import br.cspi.dao.UsuarioDAO;
-import br.cspi.model.Alunos;
 import br.cspi.model.Usuario;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
 
 class LoginServiceTest {
     // TODO testar consultar um login que existe no banco de dados.
