@@ -93,22 +93,22 @@
                         <c:choose>
                             <c:when test="${aluno.risco >= 0.7}">
                                 <td class="text-red-500">
-                                    Alto (<fmt:formatNumber value="${aluno.risco * 100}" maxFractionDigits="1"
-                                                            minFractionDigits="1"/>%)
+                                    Alto (<fmt:formatNumber value="${aluno.risco * 100}" maxFractionDigits="0"
+                                                            minFractionDigits="0"/>%)
                                     <i class="fa-solid fa-triangle-exclamation"></i>
                                 </td>
                             </c:when>
                             <c:when test="${aluno.risco > 0.3}">
                                 <td class="text-yellow-500">
-                                    Moderado (<fmt:formatNumber value="${aluno.risco * 100}" maxFractionDigits="1"
-                                                                minFractionDigits="1"/>%)
+                                    Moderado (<fmt:formatNumber value="${aluno.risco * 100}" maxFractionDigits="0"
+                                                                minFractionDigits="0"/>%)
                                     <i class="fa-solid fa-triangle-exclamation"></i>
                                 </td>
                             </c:when>
                             <c:otherwise>
                                 <td class="text-blue-500">
-                                    Baixo (<fmt:formatNumber value="${aluno.risco * 100}" maxFractionDigits="1"
-                                                             minFractionDigits="1"/>%)
+                                    Baixo (<fmt:formatNumber value="${aluno.risco * 100}" maxFractionDigits="0"
+                                                             minFractionDigits="0"/>%)
                                     <i class="fa-solid fa-thumbs-up"></i>
                                 </td>
                             </c:otherwise>

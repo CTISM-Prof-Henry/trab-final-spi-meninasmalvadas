@@ -42,22 +42,23 @@ public class AlunoController {
         System.out.println(usuario.getId() + " - " + usuario.getNome() + " - " + usuario.getPermissao());
 
         if (usuario.getPermissao() == Usuario.tipo_permissao.GERAL) {
-            // 1. Carrega todos os centros para o primeiro dropdown
+
             ArrayList<Centros> centros = this.centroService.getCentros();
             model.addAttribute("centros", centros);
 
-            // 2. Lógica para carregar os Cursos, dependendo do Centro selecionado
+
             List<Cursos> cursos = Collections.emptyList();
             if (centroId > -1) {
                 cursos = this.cursoService.getCursosbyCentro(centroId);
             }
             model.addAttribute("cursos", cursos);
         } else if (usuario.getPermissao() == Usuario.tipo_permissao.CENTRO) {
-            // 1. Carrega todos os centros para o primeiro dropdown
+
             ArrayList<Centros> centros = this.centroService.getCentro(usuario.getCentro_id());
             model.addAttribute("centros", centros);
+            centroId = usuario.getCentro_id();
 
-            // 2. Lógica para carregar os Cursos, dependendo do Centro selecionado
+
             List<Cursos> cursos = Collections.emptyList();
             if (centroId > -1) {
                 cursos = this.cursoService.getCursosbyCentro(centroId);
@@ -65,25 +66,44 @@ public class AlunoController {
             model.addAttribute("cursos", cursos);
         } else if (usuario.getPermissao() == Usuario.tipo_permissao.CURSO) {
 
-            // 2. Lógica para carregar os Cursos, dependendo do Centro selecionado
             List<Cursos> cursos = Collections.emptyList();
             if (usuario.getCurso_id() > -1) {
                 cursos = this.cursoService.getCursosbyId(usuario.getCurso_id());
+                cursoId = usuario.getCurso_id();
             }
             model.addAttribute("cursos", cursos);
 
         }
 
-        // 3. Lógica para carregar os Alunos, dependendo do Curso selecionado
         List<Alunos> alunos = Collections.emptyList();
+
         if (cursoId > -1) {
             alunos = this.alunoService.getAlunosByCurso(cursoId);
+
+
+        } else if (centroId > -1) {
+            alunos = this.alunoService.getAlunosByCentro(centroId);
+
+
+        } else if (centroId == -1 && cursoId == -1) {
+
+            if (usuario.getPermissao() == Usuario.tipo_permissao.GERAL) {
+                alunos = this.alunoService.getAlunos();
+
+            } else if (usuario.getPermissao() == Usuario.tipo_permissao.CENTRO) {
+                alunos = this.alunoService.getAlunosByCentro(usuario.getCentro_id());
+
+            } else if (usuario.getPermissao() == Usuario.tipo_permissao.CURSO) {
+                alunos = this.alunoService.getAlunosByCurso(usuario.getCurso_id());
+            }
         }
         model.addAttribute("alunos", alunos);
 
         // 4. Repassa os IDs selecionados para o JSP manter a seleção após o refresh
         model.addAttribute("centroSelecionadoId", centroId);
         model.addAttribute("cursoSelecionadoId", cursoId);
+        model.addAttribute("centroId", centroId);
+        model.addAttribute("cursoId", cursoId);
 
 
         return "home"; // Nome do JSP

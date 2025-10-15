@@ -1,5 +1,6 @@
 package br.cspi.dao;
 
+import br.cspi.model.Alunos;
 import br.cspi.model.Usuario;
 import org.springframework.stereotype.Repository;
 
@@ -126,5 +127,36 @@ public class UsuarioDAO {
 
     public List<Usuario> listarTodos() {
         return getUsuarios();
+    }
+
+    public Usuario getUsuarioByEmail(String email) {
+
+        String sql = "SELECT * FROM usuario  WHERE email = ?";
+        try (Connection conn = ConectarBancoDados.conectarBancoDados();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                Usuario u = new Usuario();
+                u.setId(rs.getInt("id"));
+                u.setNome(rs.getString("nome"));
+                u.setEmail(rs.getString("email"));
+                u.setSenha(rs.getString("senha"));
+                u.setAtivo(rs.getBoolean("ativo"));
+                u.setPermissao(Usuario.tipo_permissao.valueOf(rs.getString("permissao")));
+                u.setCentro_id(rs.getInt("centro_id"));
+                u.setCurso_id(rs.getInt("curso_id"));
+
+//                a.setMedia(rs.getDouble("media"));
+                return u;
+            }
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }

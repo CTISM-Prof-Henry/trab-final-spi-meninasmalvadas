@@ -30,7 +30,7 @@ public class AlunoServiceTest {
         AlunoService alunoService = new AlunoService(alunoDAO);
         String matriculaFantasma = "ABCDEFGH";
 
-        Alunos a  = alunoService.getAluno(matriculaFantasma);
+        Alunos a = alunoService.getAluno(matriculaFantasma);
 
 //        assertEquals(matriculaFantasma, a.getMatricula());
         assertNull(a);

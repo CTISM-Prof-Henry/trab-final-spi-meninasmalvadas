@@ -24,6 +24,10 @@ public class AlunoService {
         return this.alunoDAO.getAlunosByCurso(cursoId);
     }
 
+    public ArrayList<Alunos> getAlunosByCentro(int centroId) {
+        return this.alunoDAO.getAlunosByCentro(centroId);
+    }
+
     public Alunos getAluno(String matricula) {
 //        AlunoDAO dao = new AlunoDAO();
         return this.alunoDAO.getAluno(matricula);
