@@ -15,14 +15,15 @@ public class UsuarioDAO {
     public String alterer(Usuario usuario, int id) {
         try {
             Connection conn = ConectarBancoDados.conectarBancoDados();
-            PreparedStatement stmt = conn.prepareStatement("UPDATE usuario SET email = ?, senha = ?, nome = ?, ativo = ? WHERE id = ?"
+            PreparedStatement stmt = conn.prepareStatement("UPDATE usuario SET email = ?, senha = ?, nome = ?, ativo = ?, permissao = ? WHERE id = ?"
             );
 
             stmt.setString(1, usuario.getEmail());
             stmt.setString(2, usuario.getSenha());
             stmt.setBoolean(3, usuario.isAtivo());
             stmt.setString(4, usuario.getNome());
-            stmt.setInt(5, id);
+            stmt.setString(5, usuario.getPermissao().toString());
+            stmt.setInt(6, id);
 
             stmt.execute();
 
@@ -65,13 +66,15 @@ public class UsuarioDAO {
 
         try {
             Connection conn = ConectarBancoDados.conectarBancoDados();
-            PreparedStatement stmt = conn.prepareStatement("insert into usuario(email, senha, ativo, nome) values(?, ?, ?, ?)"
+            PreparedStatement stmt = conn.prepareStatement("insert into usuario(email, senha, ativo, nome, permissao) values(?, ?, ?, ?, ?)"
             );
 
             stmt.setString(1, usuario.getEmail());
             stmt.setString(2, usuario.getSenha());
             stmt.setBoolean(3, usuario.isAtivo());
             stmt.setString(4, usuario.getNome());
+            stmt.setString(5, usuario.getPermissao().toString());
+
 
             stmt.execute();
 

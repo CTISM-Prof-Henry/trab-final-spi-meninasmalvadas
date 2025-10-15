@@ -19,7 +19,7 @@ public class CentroService {
         return this.centroDAO.getCentros();
     }
 
-    public ArrayList<Centros> getCentro(int id) throws SQLException {
+    public ArrayList<Centros> getCentro(int id) {
         return centroDAO.getCentroById(id);
     }
 }
