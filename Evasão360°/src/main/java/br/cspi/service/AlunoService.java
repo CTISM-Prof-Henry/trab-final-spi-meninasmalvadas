@@ -30,6 +30,7 @@ public class AlunoService {
 
     public Alunos getAluno(String matricula) {
 //        AlunoDAO dao = new AlunoDAO();
+        System.out.println("AlunoService.getAluno - matricula: " + matricula);
         return this.alunoDAO.getAluno(matricula);
     }
 

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class AlunoController {
 
     @GetMapping("/home")
     public String paginaPrincipal(
-            // Recebe os parâmetros de filtro da URL
+            // parametros de filtro da URL
             @RequestParam(required = false, defaultValue = "-1") Integer centroId,
             @RequestParam(required = false, defaultValue = "-1") Integer cursoId,
             HttpSession session,
@@ -99,21 +100,30 @@ public class AlunoController {
         }
         model.addAttribute("alunos", alunos);
 
-        // 4. Repassa os IDs selecionados para o JSP manter a seleção após o refresh
+        // passa os IDs para o JSP
         model.addAttribute("centroSelecionadoId", centroId);
         model.addAttribute("cursoSelecionadoId", cursoId);
         model.addAttribute("centroId", centroId);
         model.addAttribute("cursoId", cursoId);
 
 
-        return "home"; // Nome do JSP
+        return "home"; // nome do JSP
     }
 
     @GetMapping("/aluno")
-    public String alunoDetalhe(String matricula, Model model) {
+    @ResponseBody //converte em json
+    public Alunos alunoDetalhe(@RequestParam String matricula) {
+        System.out.println("--- AlunoController.alunoDetalhe ---");
+        System.out.println("Controller - matrícula: [" + matricula + "]");
+
+        if(matricula == null || matricula.trim().isEmpty()) {
+            System.err.println("Controller: matrícula inválida (nula ou vazia)");
+            return null;
+        }
+
         Alunos aluno = this.alunoService.getAluno(matricula);
-        model.addAttribute("aluno", aluno);
-        return "home";
+        System.out.println("Controller: retornou " + (aluno != null ? aluno.getNome() : "null"));
+        return aluno;
     }
 
 
