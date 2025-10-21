@@ -166,19 +166,18 @@
 
 <%-- JAVAHORRORES pra combinar ocm halloween --%>
 <script>
-    // busca dados e preenche o modal, vai em inglkes agora to funcionar
+    // buscar e preencher os dados do aluno no modal
     function fillStudentModal(matricula) {
         console.log("fillStudentModal para matrícula ", matricula);
 
-        // verif se a matrícula é válida
         if (!matricula || typeof matricula !== 'string' || matricula.trim() === '') {
-            console.error("Matrícula inválida recebida: ", matricula);
-            alert("Erro interno: matrícula inválida");
+            console.error("Matrícula inválida recebida:", matricula);
+            alert("Erro interno: Matrícula inválida.");
             return;
         }
 
         const matriculaLimpa = matricula.trim();
-        console.log("matrícula clean girl:", matriculaLimpa);
+        console.log("Matrícula limpa:", matriculaLimpa); // Log B
 
         // campos do modal
         const modalFields = {
@@ -195,44 +194,37 @@
             riscoInput: document.getElementById('modal-risco')
         };
 
-        // limpar modal
-        modalFields.matriculaSpan.textContent = 'carregando...';
-        modalFields.nomeSpan.textContent = 'carregando...';
-        // limpar inputs
-        Object.keys(modalFields).forEach(key => {
-            if (modalFields[key] && modalFields[key].tagName === 'INPUT') {
-                modalFields[key].value = '';
-            }
+        modalFields.matriculaSpan.textContent = 'Carregando...';
+        modalFields.nomeSpan.textContent = 'Carregando...';
+        Object.values(modalFields).forEach(field => {
+            if (field && field.tagName === 'INPUT') field.value = '';
         });
 
+        // URL com '+'
         const url = '/aluno?matricula=' + encodeURIComponent(matriculaLimpa);
-        console.log("URL para fetch: ", url);
+        console.log("URL para fetch:", url);
 
         fetch(url)
             .then(response => {
-                console.log("Resposta:", response.status);
+                console.log("Status da resposta:", response.status);
                 if (!response.ok) {
-                    throw new Error(`Erro na rede: ${response.status} ${response.statusText}`);
+                    throw new Error('Erro na rede: ' + response.statusText);
                 }
                 return response.text();
             })
             .then(text => {
-                console.log("Resposta do servidor:", text);
+                console.log("Resposta:", text);
                 if (!text) {
                     throw new Error("Resposta do servidor vazia");
                 }
-                try {
-                    return JSON.parse(text);
-                } catch (e) {
-                    console.error("Falha ao converter JSON:", e);
-                    throw new Error("A resposta do servidor não é um JSON válido");
-                }
+                try { return JSON.parse(text); }
+                catch (e) { throw new Error("Resposta do servidor não é um JSON válido"); }
             })
             .then(aluno => {
-                console.log("Dados JSON recebidos: ", aluno);
+                console.log("Dados JSON recebidos:", aluno);
 
                 if (aluno && typeof aluno === 'object' && aluno.matricula) {
-                    console.log("preenchendo modal.............");
+                    console.log("Preenchendo modal...");
                     modalFields.matriculaSpan.textContent = aluno.matricula || 'N/A';
                     modalFields.nomeSpan.textContent = aluno.nome || 'N/A';
                     modalFields.emailInput.value = aluno.email || 'N/A';
@@ -241,44 +233,41 @@
                     modalFields.nascimentoInput.value = aluno.nascimento || 'N/A';
                     modalFields.telefoneInput.value = aluno.telefone || 'N/A';
                     modalFields.enderecoInput.value = aluno.endereco || 'N/A';
-                    modalFields.frequenciaInput.value = aluno.frequencia != null ? `${aluno.frequencia}%` : 'N/A';
+
+                    modalFields.frequenciaInput.value = aluno.frequencia != null ? (aluno.frequencia + '%') : 'N/A';
                     modalFields.mediaInput.value = aluno.media != null ? aluno.media.toString() : 'N/A';
 
                     let nivelRiscoTexto = 'N/A';
                     if (aluno.risco != null) {
                         const riscoPercent = aluno.risco * 100;
-                        if (aluno.risco >= 0.7) nivelRiscoTexto = `Alto (${riscoPercent.toFixed(0)}%)`;
-                        else if (aluno.risco > 0.3) nivelRiscoTexto = `Moderado (${riscoPercent.toFixed(0)}%)`;
-                        else nivelRiscoTexto = `Baixo (${riscoPercent.toFixed(0)}%)`;
+                        if (aluno.risco >= 0.7) nivelRiscoTexto = 'Alto (' + riscoPercent.toFixed(0) + '%)';
+                        else if (aluno.risco > 0.3) nivelRiscoTexto = 'Moderado (' + riscoPercent.toFixed(0) + '%)';
+                        else nivelRiscoTexto = 'Baixo (' + riscoPercent.toFixed(0) + '%)';
                     }
                     modalFields.riscoInput.value = nivelRiscoTexto;
-                    console.log("modal preenchidooooo");
+                    console.log("Modal preenchido");
+
                 } else {
-                    console.error("Null, vazio ou JSON inválido: ", aluno);
+                    console.error("Recebido null, vazio ou JSON inválido:", aluno);
                     alert('Aluno não encontrado ou dados inválidos');
                     modalFields.matriculaSpan.textContent = 'Erro';
                     modalFields.nomeSpan.textContent = 'Dados não encontrados';
                 }
             })
             .catch(error => {
-                console.error('Erro geral: ', error);
-                alert(`Não foi possível carregar os dados do aluno ${error.message}`);
+                console.error('Erro geral:', error);
+                alert('Não foi possível carregar os dados do aluno: ' + error.message);
                 modalFields.matriculaSpan.textContent = 'Erro';
                 modalFields.nomeSpan.textContent = 'Falha ao carregar';
             });
     }
 
-    // event listener DEPOIS que a página carregar viu
+    // Event Listener
     document.addEventListener('DOMContentLoaded', (event) => {
-        // botões p abrir o modal
         const detailButtons = document.querySelectorAll('.btn-show-details');
-
-        // evento de clique
         detailButtons.forEach(button => {
             button.addEventListener('click', function() {
-                // pega a matrícula de data-matricula do botão ne
                 const matricula = this.getAttribute('data-matricula');
-                // preenche o modal
                 fillStudentModal(matricula);
             });
         });
