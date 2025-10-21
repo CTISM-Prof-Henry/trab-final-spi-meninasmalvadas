@@ -63,7 +63,19 @@ input::placeholder {
 }
 
 .form-control:focus {
+    font-weight: bold;
     color: rgb(255, 255, 255) !important;
+    border: transparent !important;
+    padding: 8px 24px 8px 24px;
+    background-color: rgba(1, 6, 36, 0.699) !important;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    font-size: 20px;
+}
+
+/* dentro do modal = preto */
+.modal-content .form-label {
+    color: rgb(0, 0, 0);
 }
 
 .img-fluid {
