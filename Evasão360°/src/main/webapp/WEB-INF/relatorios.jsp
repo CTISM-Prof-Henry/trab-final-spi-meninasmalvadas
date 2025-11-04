@@ -55,35 +55,10 @@
                 </c:otherwise>
             </c:choose>
         </div>
-<%--        <div class="flex flex-col gap-5 mt-3">--%>
-<%--            <div>--%>
-<%--                <h6>Comparar cursos</h6>--%>
-<%--                <div class="flex flex-nowrap gap-3">--%>
-<%--                    <select class="form-select max-w-[300px]" aria-label="Default select example">--%>
-<%--                        <option selected>Selecione</option>--%>
-<%--                        <option value="1">One</option>--%>
-<%--                        <option value="2">Two</option>--%>
-<%--                        <option value="3">Three</option>--%>
-<%--                    </select>--%>
 
-<%--                    <select class="form-select max-w-[300px]" aria-label="Default select example">--%>
-<%--                        <option selected>Selecione</option>--%>
-<%--                        <option value="1">One</option>--%>
-<%--                        <option value="2">Two</option>--%>
-<%--                        <option value="3">Three</option>--%>
-<%--                    </select>--%>
-
-<%--                    <button type="button" class="btn btn-light">--%>
-<%--                        <i class="fa-solid fa-plus"></i>--%>
-<%--                    </button>--%>
-<%--                </div>--%>
-<%--                <a href="#" class="btn btn-primary btn-md mt-2">--%>
-<%--                    <b>Gerar</b>--%>
-<%--                </a>--%>
-<%--            </div>--%>
 
             <div >
-                <h6>Evolução por curso</h6>
+                <h6>Evasão por Centro ou Curso</h6>
                     <form class="flex flex-nowrap gap-3" action="/relatorios" method="get">
                         <select name="centroId" class="form-select max-w-[300px]" id="centroSelect" onchange="this.form.submit()">
                             <option value="">Centros</option>
