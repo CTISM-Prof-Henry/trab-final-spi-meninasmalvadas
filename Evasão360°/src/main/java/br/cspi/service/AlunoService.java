@@ -5,6 +5,7 @@ import br.cspi.model.Alunos;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class AlunoService {
@@ -32,6 +33,19 @@ public class AlunoService {
 //        AlunoDAO dao = new AlunoDAO();
         System.out.println("AlunoService.getAluno - matricula: " + matricula);
         return this.alunoDAO.getAluno(matricula);
+    }
+
+    public List<Alunos> getAlunosbyRisco(List<Alunos> alunos) {
+       List<Alunos> alunosAR = new ArrayList<Alunos>();
+
+       for (Alunos a: alunos ) {
+           System.out.println(a.getRisco());
+           if (a.getRisco() >= 0.7){
+               alunosAR.add(a);
+           }
+       }
+
+       return alunosAR;
     }
 
 }
