@@ -8,12 +8,12 @@
 
     <title>Login</title>
 </head>
-<body class="flex items-center justify-center w-full h-[100vh]">
-<div class="card bg-primary max-w-[24%] mx-[10%] h-[55%]">
-    <div class="card-body flex flex-col justify-between gap-5">
+<body class="flex items-center justify-center w-full h-[100vh] p-4 sm:p-6 bg-gray-100">
+<div class="card bg-primary w-full max-w-sm lg:max-w-md mx-auto shadow-xl">
+    <div class="card-body flex flex-col justify-between gap-5 p-6">
         <div class="flex flex-nowrap gap-3 font-bold items-center justify-center w-full">
-            <img width="20%" src="${pageContext.request.contextPath}/img/logo-ufsm.webp"/>
-            <h1>LOGIN</h1>
+            <img width="18%" src="${pageContext.request.contextPath}/img/logo-ufsm.webp"/>
+            <h2>LOGIN</h2>
         </div>
 
         <div class="flex flex-col gap-3">

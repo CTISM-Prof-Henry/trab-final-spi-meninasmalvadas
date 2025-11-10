@@ -2,19 +2,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <jsp:include page="shared/header.jsp"/>
     <title>Home</title>
 </head>
 
-<body class="flex items-center justify-center w-full h-[100vh]">
-<div class="card bg-primary mx-[10%] h-[75%]">
-    <ul class="nav flex items-center justify-between mb-3">
-        <div class="flex flex-nowrap">
+<body class="flex items-center justify-center w-full min-h-screen bg-gray-50 p-2 sm:p-6">
+<div class="card bg-primary w-full sm:w-[90%] md:w-[80%] lg:w-[70%] xl:w-[60%] h-auto sm:h-[85vh] rounded-2xl shadow-lg p-4 sm:p-6 flex flex-col gap-4">
+
+    <!-- NAV -->
+    <ul class="nav flex flex-wrap items-center justify-between mb-4 gap-3 text-sm sm:text-base">
+        <div class="flex flex-wrap gap-2">
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/home"><u>Início</u></a>
+                <a class="nav-link active font-semibold" href="/home"><u>Início</u></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/relatorios">Relatórios</a>
@@ -25,82 +27,76 @@
         </li>
     </ul>
 
-    <div class="flex flex-col gap-3">
-        <div class="flex flex-nowrap gap-3 font-bold items-center justify-center w-full">
-            <img width="6%" src="${pageContext.request.contextPath}/img/logo-ufsm.webp"/>
-            <h1>EVASÃO 360</h1>
-        </div>
-
-        <div class="flex items-center justify-between w-full relative">
-            <div class="absolute left-1/2 transform -translate-x-1/2">
-                <h3 class="text-secondary"><i>Alunos com risco de evasão</i></h3>
-            </div>
-            <div></div>
-            <div class="flex flex-nowrap gap-1">
-                <form action="/home" method="get">
-                    <select name="centroId" class="form-select" id="centroSelect" onchange="this.form.submit()">
-                        <option value="">Centros</option>
-                        <c:forEach var="centro" items="${centros}">
-                            <option value="${centro.id}" <c:if test="${centroSelecionadoId == centro.id}">selected</c:if>>
-                                    ${centro.nome}
-                            </option>
-                        </c:forEach>
-                    </select>
-                    <select name="cursoId" class="form-select" id="cursoSelect" onchange="this.form.submit()">
-                        <option value="">Cursos</option>
-                        <c:forEach var="curso" items="${cursos}">
-                            <option value="${curso.id}" <c:if test="${cursoSelecionadoId == curso.id}">selected</c:if>>
-                                    ${curso.nome}
-                            </option>
-                        </c:forEach>
-                    </select>
-                </form>
-            </div>
-        </div>
-
-        <div class="overflow-auto max-w-full max-h-85 modal-content">
-            <table id="example" class="table table-striped">
-                <thead>
-                <tr>
-                    <th>Matrícula</th>
-                    <th>Nome</th>
-                    <th>Curso</th>
-                    <th>Risco de Evasão</th>
-                    <th>+</th>
-                </tr>
-                </thead>
-                <tbody id="table-body">
-                <c:forEach items="${alunos}" var="aluno">
-                    <tr>
-                        <td>${aluno.matricula}</td>
-                        <td>${aluno.nome}</td>
-                        <td>${aluno.cursoNome}</td>
-                        <c:choose>
-                            <c:when test="${aluno.risco >= 0.7}">
-                                <td class="text-red-500">Alto (<fmt:formatNumber value="${aluno.risco * 100}" maxFractionDigits="0"/>%) <i class="fa-solid fa-triangle-exclamation"></i></td>
-                            </c:when>
-                            <c:when test="${aluno.risco > 0.3}">
-                                <td class="text-yellow-500">Moderado (<fmt:formatNumber value="${aluno.risco * 100}" maxFractionDigits="0"/>%) <i class="fa-solid fa-triangle-exclamation"></i></td>
-                            </c:when>
-                            <c:otherwise>
-                                <td class="text-blue-500">Baixo (<fmt:formatNumber value="${aluno.risco * 100}" maxFractionDigits="0"/>%) <i class="fa-solid fa-thumbs-up"></i></td>
-                            </c:otherwise>
-                        </c:choose>
-                        <td>
-                            <button type="button" class="btn btn-show-details"
-                                    data-bs-toggle="modal" data-bs-target="#studentModal"
-                                    data-matricula="${aluno.matricula}">
-                                <i class="fa-solid fa-arrow-up-right-from-square text-secondary"></i>
-                            </button>
-                        </td>
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
-        </div>
+    <div class="flex flex-wrap gap-3 font-bold items-center justify-center text-center">
+        <img class="w-12 sm:w-16 md:w-16" src="${pageContext.request.contextPath}/img/logo-ufsm.webp" alt="Logo UFSM"/>
+        <h1 class="text-lg sm:text-2xl md:text-xl text-white">EVASÃO 360</h1>
     </div>
 
-    <div class="pt-3">
+    <div class="flex flex-col sm:flex-row items-center justify-between w-full relative gap-3">
+        <h3 class="text-secondary text-center sm:text-left text-sm sm:text-base"><i>Alunos com risco de evasão</i></h3>
+
+        <form action="/home" method="get" class="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+            <select name="centroId" class="form-select text-sm sm:text-base" id="centroSelect" onchange="this.form.submit()">
+                <option value="">Centros</option>
+                <c:forEach var="centro" items="${centros}">
+                    <option value="${centro.id}" <c:if test="${centroSelecionadoId == centro.id}">selected</c:if>>
+                            ${centro.nome}
+                    </option>
+                </c:forEach>
+            </select>
+            <select name="cursoId" class="form-select text-sm sm:text-base" id="cursoSelect" onchange="this.form.submit()">
+                <option value="">Cursos</option>
+                <c:forEach var="curso" items="${cursos}">
+                    <option value="${curso.id}" <c:if test="${cursoSelecionadoId == curso.id}">selected</c:if>>
+                            ${curso.nome}
+                    </option>
+                </c:forEach>
+            </select>
+        </form>
+    </div>
+
+    <div class="table-wrapper-max overflow-auto bg-white rounded-lg p-2 shadow-inner flex-grow">
+        <table id="example" class="table table-striped table-fixed text-sm sm:text-base">
+            <thead class="text-center">
+            <tr>
+                <th style="width:12%;">Matrícula</th>
+                <th style="width:40%;">Nome</th>
+                <th style="width:20%;">Curso</th>
+                <th style="width:18%;">Risco de Evasão</th>
+                <th style="width:10%;">+</th>
+            </tr>
+            </thead>
+            <tbody id="table-body">
+            <c:forEach items="${alunos}" var="aluno">
+                <tr>
+                    <td class="px-2 py-2">${aluno.matricula}</td>
+                    <td class="px-2 py-2">${aluno.nome}</td>
+                    <td class="px-2 py-2">${aluno.cursoNome}</td>
+                    <c:choose>
+                        <c:when test="${aluno.risco >= 0.7}">
+                            <td class="px-2 py-2 text-red-500">Alto (<fmt:formatNumber value="${aluno.risco * 100}" maxFractionDigits="0"/>%) <i class="fa-solid fa-triangle-exclamation"></i></td>
+                        </c:when>
+                        <c:when test="${aluno.risco > 0.3}">
+                            <td class="px-2 py-2 text-yellow-500">Moderado (<fmt:formatNumber value="${aluno.risco * 100}" maxFractionDigits="0"/>%) <i class="fa-solid fa-triangle-exclamation"></i></td>
+                        </c:when>
+                        <c:otherwise>
+                            <td class="px-2 py-2 text-blue-500">Baixo (<fmt:formatNumber value="${aluno.risco * 100}" maxFractionDigits="0"/>%) <i class="fa-solid fa-thumbs-up"></i></td>
+                        </c:otherwise>
+                    </c:choose>
+                    <td class="px-2 py-2 text-center">
+                        <button type="button" class="btn btn-show-details p-1"
+                                data-bs-toggle="modal" data-bs-target="#studentModal"
+                                data-matricula="${aluno.matricula}">
+                            <i class="fa-solid fa-arrow-up-right-from-square text-secondary"></i>
+                        </button>
+                    </td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="pt-1">
         <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#tutorialModal">
             <img width="6%" src="${pageContext.request.contextPath}/img/losango.png" class="float-left" alt="Tutorial Risco" style="width: 40px; height: 60px; padding-top: 15px;">
             <p style="padding-top: 20px; padding-left: 50px;">Tutorial risco</p>
@@ -162,9 +158,10 @@
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
 
-<%-- JAVAHORRORES pra combinar ocm halloween --%>
 <script>
     // buscar e preencher os dados do aluno no modal
     function fillStudentModal(matricula) {

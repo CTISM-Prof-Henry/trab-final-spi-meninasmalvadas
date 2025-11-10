@@ -9,7 +9,6 @@ body {
 .bg-primary {
     background-color: #28346C !important;
     border-radius: 24px;
-    padding: 3%;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
 }
 
@@ -114,4 +113,27 @@ th{
 table{
     background-color: white;
     border-radius: 16px;
+}
+
+.table-fixed {
+    table-layout: fixed;
+    width: 100%;
+}
+.table-fixed th,
+.table-fixed td {
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+@media (min-width: 640px) {
+    .table-wrapper-max {
+        max-height: 35vh;
+    }
+}
+
+@media (max-width: 639px) {
+    .table-wrapper-max {
+        max-height: 40vh;
+    }
 }
