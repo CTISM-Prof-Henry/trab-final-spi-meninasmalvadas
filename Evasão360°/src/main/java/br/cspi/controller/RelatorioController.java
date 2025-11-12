@@ -21,6 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import java.time.format.DateTimeFormatter;
 
 import java.awt.*;
 import java.io.IOException;
@@ -156,7 +157,11 @@ public class RelatorioController {
             Paragraph titulo = new Paragraph("Alto Risco de Evasão UFSM", fontTitulo);
             titulo.setAlignment(Element.ALIGN_CENTER);
             document.add(titulo);
-            Paragraph Data = new Paragraph(("Data: " + LocalDate.now()));
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            String dataF = LocalDate.now().format(formatter);
+            Paragraph Data = new Paragraph("Data: " + dataF);
+
             Data.setAlignment(Element.ALIGN_CENTER);
 
             document.add(new Paragraph(" ")); // espaço
@@ -250,7 +255,10 @@ public class RelatorioController {
             Paragraph titulo = new Paragraph("Alto Risco de Evasão UFSM", fontTitulo);
             titulo.setAlignment(Element.ALIGN_CENTER);
             document.add(titulo);
-            Paragraph Data = new Paragraph(("Data: " + LocalDate.now()));
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            String dataF = LocalDate.now().format(formatter);
+            Paragraph Data = new Paragraph("Data: " + dataF);
             Data.setAlignment(Element.ALIGN_CENTER);
 
             document.add(new Paragraph(" ")); // espaço
@@ -347,7 +355,10 @@ public class RelatorioController {
             Paragraph titulo = new Paragraph("Alto Risco de Evasão UFSM", fontTitulo);
             titulo.setAlignment(Element.ALIGN_CENTER);
             document.add(titulo);
-            Paragraph Data = new Paragraph(("Data: " + LocalDate.now()));
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            String dataF = LocalDate.now().format(formatter);
+            Paragraph Data = new Paragraph("Data: " + dataF);
             Data.setAlignment(Element.ALIGN_CENTER);
 
             document.add(new Paragraph(" ")); // espaço
