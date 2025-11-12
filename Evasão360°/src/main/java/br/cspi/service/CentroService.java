@@ -23,4 +23,8 @@ public class CentroService {
     public ArrayList<Centros> getCentro(int id) {
         return centroDAO.getCentroById(id);
     }
+
+    public String getNomeCentro(int id) {
+        return centroDAO.getNomeCentro(id);
+    }
 }

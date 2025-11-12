@@ -98,5 +98,33 @@ public class CursoDAO {
         return c;
     }
 
+    public String getNomeCurso(int id) {
+        String nome = null;
+        String sql = "SELECT nome FROM cursos WHERE id = ?";
+
+        try (Connection conn = ConectarBancoDados.conectarBancoDados();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+
+                // 1a linha de resultado
+                if (rs.next()) {
+                    nome = rs.getString("nome");
+                }
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao conectar ou consultar: " + e.getMessage());
+            e.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            System.err.println("Erro ao carregar o driver: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+
+        return nome;
+    }
+
 }
 

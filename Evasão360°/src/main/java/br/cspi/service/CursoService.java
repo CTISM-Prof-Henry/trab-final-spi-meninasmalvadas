@@ -34,4 +34,8 @@ public class CursoService {
     public List<Cursos> getCursosbyId(int cursoId) {
         return Collections.singletonList(this.cursoDAO.getCursoById(cursoId));
     }
+
+    public String getNomeCurso(int id) {
+        return this.cursoDAO.getNomeCurso(id);
+    }
 }

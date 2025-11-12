@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Controller
@@ -120,7 +121,7 @@ public class RelatorioController {
 
     @GetMapping("/relatorioByCurso/{id}")
     public void gerarRelatorioByCurso(HttpServletResponse response, HttpSession session,
-                               @PathVariable int id) throws IOException {
+                                      @PathVariable int id) throws IOException {
 
         response.setContentType("application/pdf");
         response.setHeader("Content-Disposition", "attachment; filename=relatorio.pdf");
@@ -128,20 +129,30 @@ public class RelatorioController {
         List<Alunos> alunosbase = alunoService.getAlunosByCurso(id);
         List<Alunos> alunos = alunoService.getAlunosbyRisco(alunosbase);
 
+        // nome do curso
+        String nomeCurso = cursoService.getNomeCurso(id);
+
+        // busca curso p pegar o centro depois
+        Cursos curso = cursoService.getCursoById(id);
+
+        int centroIdDoCurso = -1; // valor padrao caso nso encontre
+        if (curso != null) {
+            centroIdDoCurso = curso.getCentro_id();
+        }
+
+        String nomeCentro = (centroIdDoCurso != -1) ? centroService.getNomeCentro(centroIdDoCurso) : "Centro não encontrado";
+
 
         try {
-
             Document document = new Document(PageSize.A4, 50, 50, 60, 60);
             PdfWriter.getInstance(document, response.getOutputStream());
             document.open();
 
-            // Fonte de título principal
             Font fontTitulo = new Font(Font.HELVETICA, 18, Font.BOLD);
             Font fontSubtitulo = new Font(Font.HELVETICA, 12, Font.BOLD);
             Font fontTexto = new Font(Font.HELVETICA, 10, Font.NORMAL);
             Font fontTexto2 = new Font(Font.HELVETICA, 12, Font.NORMAL, Color.WHITE);
 
-            // Título centralizado
             Paragraph titulo = new Paragraph("Alto Risco de Evasão UFSM", fontTitulo);
             titulo.setAlignment(Element.ALIGN_CENTER);
             document.add(titulo);
@@ -152,17 +163,20 @@ public class RelatorioController {
             document.add(Data);
             document.add(new Paragraph(" ")); // espaço
 
-            // INTRODUÇÃO
             document.add(new Paragraph("Introdução", fontSubtitulo));
             document.add(new Paragraph(" "));
             document.add(new Paragraph("        Listagem analítica de alunos classificados com alto risco de evasão, elaborada a partir dos dados acadêmicos coletados.", fontTexto));
+
+            document.add(new Paragraph("Centro", fontSubtitulo));
+            document.add(new Paragraph(nomeCentro, fontTexto));
+            document.add(new Paragraph("Curso", fontSubtitulo));
+            document.add(new Paragraph(nomeCurso, fontTexto));
             document.add(new Paragraph(" "));
 
-            PdfPTable table = new PdfPTable(4);
-            table.setWidthPercentage(100); // usa toda a largura disponível
-            table.setWidths(new float[]{1f, 1.5f, 1.5f, 2f});
-
-            String[] headers = {"Matricula", "Nome", "Curso", "Email"};
+            PdfPTable table = new PdfPTable(5);
+            table.setWidthPercentage(100);
+            table.setWidths(new float[]{0.8f, 1.5f, 1.5f, 1.7f, 0.6f});
+            String[] headers = {"Matricula", "Nome", "Curso", "Email", "Risco"};
 
             for (String header : headers) {
                 PdfPCell headerCell = new PdfPCell();
@@ -172,20 +186,21 @@ public class RelatorioController {
                 headerCell.setPhrase(new Phrase(header, fontTexto2));
                 table.addCell(headerCell);
             }
+
+            alunos.sort(Comparator.comparingDouble(Alunos::getRisco).reversed());
             List<String[]> dados = new ArrayList<>();
             for (Alunos aluno : alunos) {
                 dados.add(new String[]{
                         String.valueOf(aluno.getMatricula()),
                         aluno.getNome(),
                         aluno.getCursoNome(),
-                        aluno.getEmail()
+                        aluno.getEmail(),
+                        aluno.getRisco() * 100 + "%"
                 });
-
             }
+
             int rowCount = 0;
             for (String[] linha : dados) {
-
-
                 for (String valor : linha) {
                     PdfPCell cell = new PdfPCell(new Phrase(valor, fontTexto));
                     if (rowCount % 2 == 0) {
@@ -199,9 +214,7 @@ public class RelatorioController {
                 rowCount++;
             }
 
-
             document.add(table);
-            
             document.close();
 
         } catch (DocumentException e) {
@@ -248,13 +261,15 @@ public class RelatorioController {
             document.add(new Paragraph("Introdução", fontSubtitulo));
             document.add(new Paragraph(" "));
             document.add(new Paragraph("        Listagem analítica de alunos classificados com alto risco de evasão, elaborada a partir dos dados acadêmicos coletados.", fontTexto));
+            document.add(new Paragraph("Centro", fontSubtitulo));
+            document.add(new Paragraph(centroService.getNomeCentro(id), fontTexto));
             document.add(new Paragraph(" "));
 
-            PdfPTable table = new PdfPTable(4);
+            PdfPTable table = new PdfPTable(5);
             table.setWidthPercentage(100); // usa toda a largura disponível
-            table.setWidths(new float[]{1f, 1.5f, 1.5f, 2f});
+            table.setWidths(new float[]{0.8f, 1.5f, 1.5f, 1.7f, 0.6f});
 
-            String[] headers = {"Matricula", "Nome", "Curso", "Email"};
+            String[] headers = {"Matricula", "Nome", "Curso", "Email", "Risco"};
 
             for (String header : headers) {
                 PdfPCell headerCell = new PdfPCell();
@@ -264,13 +279,17 @@ public class RelatorioController {
                 headerCell.setPhrase(new Phrase(header, fontTexto2));
                 table.addCell(headerCell);
             }
+
+            // ordena
+            alunos.sort(Comparator.comparingDouble(Alunos::getRisco).reversed());
             List<String[]> dados = new ArrayList<>();
             for (Alunos aluno : alunos) {
                 dados.add(new String[]{
                         String.valueOf(aluno.getMatricula()),
                         aluno.getNome(),
                         aluno.getCursoNome(),
-                        aluno.getEmail()
+                        aluno.getEmail(),
+                        aluno.getRisco() * 100 + "%"
                 });
 
             }
@@ -341,11 +360,11 @@ public class RelatorioController {
             document.add(new Paragraph("        Listagem analítica de alunos classificados com alto risco de evasão, elaborada a partir dos dados acadêmicos coletados.", fontTexto));
             document.add(new Paragraph(" "));
 
-            PdfPTable table = new PdfPTable(4);
+            PdfPTable table = new PdfPTable(5);
             table.setWidthPercentage(100); // usa toda a largura disponível
-            table.setWidths(new float[]{1f, 1.5f, 1.5f, 2f});
+            table.setWidths(new float[]{0.8f, 1.5f, 1.5f, 1.7f, 0.6f});
 
-            String[] headers = {"Matricula", "Nome", "Curso", "Email"};
+            String[] headers = {"Matricula", "Nome", "Curso", "Email", "Risco"};
 
             for (String header : headers) {
                 PdfPCell headerCell = new PdfPCell();
@@ -355,13 +374,18 @@ public class RelatorioController {
                 headerCell.setPhrase(new Phrase(header, fontTexto2));
                 table.addCell(headerCell);
             }
+
+            // ordena
+            alunos.sort(Comparator.comparingDouble(Alunos::getRisco).reversed());
+
             List<String[]> dados = new ArrayList<>();
             for (Alunos aluno : alunos) {
                 dados.add(new String[]{
                         String.valueOf(aluno.getMatricula()),
                         aluno.getNome(),
                         aluno.getCursoNome(),
-                        aluno.getEmail()
+                        aluno.getEmail(),
+                        aluno.getRisco() * 100 + "%"
                 });
 
             }
